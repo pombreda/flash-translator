@@ -1,0 +1,13 @@
+#summary User documentation for the tools.
+#labels Featured
+
+= Overview =
+
+This documentation is a placeholder for now. Watch this message never change!
+
+= Tools =
+
+  * SWFExtractSSA - Extracts timed, untranslated SSA files from SWF files.
+  * SWFInsertSSA - Inserts subtitles from SSA files into SWF files, and removes untranslated texts.
+  * SWFStrings - Simple tool to list all strings found in an SWF file.
+  * SWFCompress - Compresses an SWF file.
