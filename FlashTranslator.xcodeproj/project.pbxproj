@@ -1,0 +1,608 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1B0DD6A30B6562F700CEB44D /* SWFParser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B0DD6A10B6562F700CEB44D /* SWFParser.h */; };
+		1B0DD6A40B6562F700CEB44D /* SWFParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DD6A20B6562F700CEB44D /* SWFParser.m */; };
+		1B8D93FC0B6050ED00FEF20D /* swfcompress.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D93F20B6050BE00FEF20D /* swfcompress.m */; };
+		1B8D940B0B60514900FEF20D /* CSFileHandle.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B8D94090B60514900FEF20D /* CSFileHandle.h */; };
+		1B8D940C0B60514900FEF20D /* CSFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D940A0B60514900FEF20D /* CSFileHandle.m */; };
+		1B8D94140B6137B200FEF20D /* CSHandle.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B8D940E0B6137B200FEF20D /* CSHandle.h */; };
+		1B8D94150B6137B200FEF20D /* CSZlibHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D940F0B6137B200FEF20D /* CSZlibHandle.m */; };
+		1B8D94170B6137B200FEF20D /* CSHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D94110B6137B200FEF20D /* CSHandle.m */; };
+		1B8D94180B6137B200FEF20D /* CSZlibHandle.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B8D94120B6137B200FEF20D /* CSZlibHandle.h */; };
+		1BFF652A0B61CE2A00E0900B /* SWFGeometry.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1BFF65280B61CE2A00E0900B /* SWFGeometry.h */; };
+		1BFF652B0B61CE2A00E0900B /* SWFGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF65290B61CE2A00E0900B /* SWFGeometry.m */; };
+		1BFF67460B658B4600E0900B /* SWFText.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1BFF67440B658B4600E0900B /* SWFText.h */; };
+		1BFF67470B658B4600E0900B /* SWFText.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF67450B658B4600E0900B /* SWFText.m */; };
+		1BFF674D0B658B6600E0900B /* SWFFont.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1BFF674B0B658B6600E0900B /* SWFFont.h */; };
+		1BFF674E0B658B6600E0900B /* SWFFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF674C0B658B6600E0900B /* SWFFont.m */; };
+		1BFF674F0B658B6600E0900B /* SWFFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF674C0B658B6600E0900B /* SWFFont.m */; };
+		1BFF67500B658B6600E0900B /* SWFFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF674C0B658B6600E0900B /* SWFFont.m */; };
+		1BFF68270B66DFD600E0900B /* swfextractssa.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D93E40B604F9700FEF20D /* swfextractssa.m */; };
+		1BFF682A0B66DFDE00E0900B /* SWFGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF65290B61CE2A00E0900B /* SWFGeometry.m */; };
+		1BFF682B0B66DFE100E0900B /* SWFParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DD6A20B6562F700CEB44D /* SWFParser.m */; };
+		1BFF682C0B66DFE400E0900B /* SWFText.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF67450B658B4600E0900B /* SWFText.m */; };
+		1BFF682D0B66DFE700E0900B /* CSFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D940A0B60514900FEF20D /* CSFileHandle.m */; };
+		1BFF682E0B66DFE700E0900B /* CSHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D94110B6137B200FEF20D /* CSHandle.m */; };
+		1BFF68300B66DFEB00E0900B /* CSZlibHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D940F0B6137B200FEF20D /* CSZlibHandle.m */; };
+		1BFF687A0B66E07400E0900B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BFF68790B66E07400E0900B /* libz.dylib */; };
+		1BFF687B0B66E07400E0900B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BFF68790B66E07400E0900B /* libz.dylib */; };
+		1BFF687C0B66E07400E0900B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BFF68790B66E07400E0900B /* libz.dylib */; };
+		1BFF687E0B66E07400E0900B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BFF68790B66E07400E0900B /* libz.dylib */; };
+		1BFF68FD0B66E09200E0900B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		1BFF6A270B69530400E0900B /* swfinsertssa.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF6A260B69530400E0900B /* swfinsertssa.m */; };
+		1BFF6A2A0B69531F00E0900B /* CSFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D940A0B60514900FEF20D /* CSFileHandle.m */; };
+		1BFF6A2B0B69532100E0900B /* CSHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D94110B6137B200FEF20D /* CSHandle.m */; };
+		1BFF6A2C0B69532200E0900B /* CSZlibHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D940F0B6137B200FEF20D /* CSZlibHandle.m */; };
+		1BFF6A2D0B69532500E0900B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		1BFF6A2E0B69532A00E0900B /* SWFGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF65290B61CE2A00E0900B /* SWFGeometry.m */; };
+		1BFF6A2F0B69533400E0900B /* SWFParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DD6A20B6562F700CEB44D /* SWFParser.m */; };
+		1BFF6A300B69533700E0900B /* SWFText.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF67450B658B4600E0900B /* SWFText.m */; };
+		1BFF6AC10B69542300E0900B /* SWFWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF6AC00B69542300E0900B /* SWFWriter.m */; };
+		1BFF6B200B6964AB00E0900B /* CSMemoryHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF6B1F0B6964AB00E0900B /* CSMemoryHandle.m */; };
+		8DD76F9A0486AA7600D96B5E /* swfstrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* swfstrings.m */; settings = {ATTRIBUTES = (); }; };
+		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8DD76F9E0486AA7600D96B5E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				1B8D940B0B60514900FEF20D /* CSFileHandle.h in CopyFiles */,
+				1B8D94140B6137B200FEF20D /* CSHandle.h in CopyFiles */,
+				1B8D94180B6137B200FEF20D /* CSZlibHandle.h in CopyFiles */,
+				1BFF652A0B61CE2A00E0900B /* SWFGeometry.h in CopyFiles */,
+				1B0DD6A30B6562F700CEB44D /* SWFParser.h in CopyFiles */,
+				1BFF67460B658B4600E0900B /* SWFText.h in CopyFiles */,
+				1BFF674D0B658B6600E0900B /* SWFFont.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		08FB7796FE84155DC02AAC07 /* swfstrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = swfstrings.m; sourceTree = "<group>"; };
+		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		1B0DD6090B65623100CEB44D /* swfextractssa */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swfextractssa; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B0DD6930B65627B00CEB44D /* swfinsertssa */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swfinsertssa; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B0DD6A10B6562F700CEB44D /* SWFParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFParser.h; sourceTree = "<group>"; };
+		1B0DD6A20B6562F700CEB44D /* SWFParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFParser.m; sourceTree = "<group>"; };
+		1B8D93E40B604F9700FEF20D /* swfextractssa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = swfextractssa.m; sourceTree = "<group>"; };
+		1B8D93F20B6050BE00FEF20D /* swfcompress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = swfcompress.m; sourceTree = "<group>"; };
+		1B8D93F90B6050D700FEF20D /* swfcompress */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swfcompress; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B8D94090B60514900FEF20D /* CSFileHandle.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CSFileHandle.h; sourceTree = "<group>"; };
+		1B8D940A0B60514900FEF20D /* CSFileHandle.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = CSFileHandle.m; sourceTree = "<group>"; };
+		1B8D940E0B6137B200FEF20D /* CSHandle.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = CSHandle.h; sourceTree = "<group>"; };
+		1B8D940F0B6137B200FEF20D /* CSZlibHandle.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; path = CSZlibHandle.m; sourceTree = "<group>"; };
+		1B8D94100B6137B200FEF20D /* CSIFFHandle.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = CSIFFHandle.h; sourceTree = "<group>"; };
+		1B8D94110B6137B200FEF20D /* CSHandle.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; path = CSHandle.m; sourceTree = "<group>"; };
+		1B8D94120B6137B200FEF20D /* CSZlibHandle.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = CSZlibHandle.h; sourceTree = "<group>"; };
+		1B8D94130B6137B200FEF20D /* CSIFFHandle.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; path = CSIFFHandle.m; sourceTree = "<group>"; };
+		1BFF65280B61CE2A00E0900B /* SWFGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFGeometry.h; sourceTree = "<group>"; };
+		1BFF65290B61CE2A00E0900B /* SWFGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFGeometry.m; sourceTree = "<group>"; };
+		1BFF67440B658B4600E0900B /* SWFText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFText.h; sourceTree = "<group>"; };
+		1BFF67450B658B4600E0900B /* SWFText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFText.m; sourceTree = "<group>"; };
+		1BFF674B0B658B6600E0900B /* SWFFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFFont.h; sourceTree = "<group>"; };
+		1BFF674C0B658B6600E0900B /* SWFFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFFont.m; sourceTree = "<group>"; };
+		1BFF68790B66E07400E0900B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /usr/lib/libz.dylib; sourceTree = "<absolute>"; };
+		1BFF6A260B69530400E0900B /* swfinsertssa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = swfinsertssa.m; sourceTree = "<group>"; };
+		1BFF6ABF0B69542300E0900B /* SWFWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFWriter.h; sourceTree = "<group>"; };
+		1BFF6AC00B69542300E0900B /* SWFWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFWriter.m; sourceTree = "<group>"; };
+		1BFF6B1E0B6964AB00E0900B /* CSMemoryHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSMemoryHandle.h; sourceTree = "<group>"; };
+		1BFF6B1F0B6964AB00E0900B /* CSMemoryHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMemoryHandle.m; sourceTree = "<group>"; };
+		32A70AAB03705E1F00C91783 /* FlashTranslator_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashTranslator_Prefix.pch; sourceTree = "<group>"; };
+		8DD76FA10486AA7600D96B5E /* swfstrings */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swfstrings; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1B0DD6070B65623100CEB44D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BFF687B0B66E07400E0900B /* libz.dylib in Frameworks */,
+				1BFF68FD0B66E09200E0900B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B0DD6910B65627B00CEB44D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BFF687C0B66E07400E0900B /* libz.dylib in Frameworks */,
+				1BFF6A2D0B69532500E0900B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B8D93F70B6050D700FEF20D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BFF687E0B66E07400E0900B /* libz.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DD76F9B0486AA7600D96B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */,
+				1BFF687A0B66E07400E0900B /* libz.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* FlashTranslator */ = {
+			isa = PBXGroup;
+			children = (
+				08FB7795FE84155DC02AAC07 /* Source */,
+				08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = FlashTranslator;
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				08FB7796FE84155DC02AAC07 /* swfstrings.m */,
+				1B8D93E40B604F9700FEF20D /* swfextractssa.m */,
+				1BFF6A260B69530400E0900B /* swfinsertssa.m */,
+				1B8D93F20B6050BE00FEF20D /* swfcompress.m */,
+				1B0DD6A10B6562F700CEB44D /* SWFParser.h */,
+				1B0DD6A20B6562F700CEB44D /* SWFParser.m */,
+				1BFF6ABF0B69542300E0900B /* SWFWriter.h */,
+				1BFF6AC00B69542300E0900B /* SWFWriter.m */,
+				1BFF67440B658B4600E0900B /* SWFText.h */,
+				1BFF67450B658B4600E0900B /* SWFText.m */,
+				1BFF674B0B658B6600E0900B /* SWFFont.h */,
+				1BFF674C0B658B6600E0900B /* SWFFont.m */,
+				1BFF65280B61CE2A00E0900B /* SWFGeometry.h */,
+				1BFF65290B61CE2A00E0900B /* SWFGeometry.m */,
+				1BFF69AF0B680AA600E0900B /* IO Classes */,
+				32A70AAB03705E1F00C91783 /* FlashTranslator_Prefix.pch */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				08FB779EFE84155DC02AAC07 /* Foundation.framework */,
+				1BFF68790B66E07400E0900B /* libz.dylib */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DD76FA10486AA7600D96B5E /* swfstrings */,
+				1B0DD6090B65623100CEB44D /* swfextractssa */,
+				1B0DD6930B65627B00CEB44D /* swfinsertssa */,
+				1B8D93F90B6050D700FEF20D /* swfcompress */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1BFF69AF0B680AA600E0900B /* IO Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1B8D940E0B6137B200FEF20D /* CSHandle.h */,
+				1B8D94110B6137B200FEF20D /* CSHandle.m */,
+				1B8D94090B60514900FEF20D /* CSFileHandle.h */,
+				1B8D940A0B60514900FEF20D /* CSFileHandle.m */,
+				1BFF6B1E0B6964AB00E0900B /* CSMemoryHandle.h */,
+				1BFF6B1F0B6964AB00E0900B /* CSMemoryHandle.m */,
+				1B8D94120B6137B200FEF20D /* CSZlibHandle.h */,
+				1B8D940F0B6137B200FEF20D /* CSZlibHandle.m */,
+				1B8D94100B6137B200FEF20D /* CSIFFHandle.h */,
+				1B8D94130B6137B200FEF20D /* CSIFFHandle.m */,
+			);
+			name = "IO Classes";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1B0DD6080B65623100CEB44D /* swfextractssa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B0DD68D0B65627300CEB44D /* Build configuration list for PBXNativeTarget "swfextractssa" */;
+			buildPhases = (
+				1B0DD6060B65623100CEB44D /* Sources */,
+				1B0DD6070B65623100CEB44D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = swfextractssa;
+			productName = swfextractssa;
+			productReference = 1B0DD6090B65623100CEB44D /* swfextractssa */;
+			productType = "com.apple.product-type.tool";
+		};
+		1B0DD6920B65627B00CEB44D /* swfinsertssa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B0DD6960B65629F00CEB44D /* Build configuration list for PBXNativeTarget "swfinsertssa" */;
+			buildPhases = (
+				1B0DD6900B65627B00CEB44D /* Sources */,
+				1B0DD6910B65627B00CEB44D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = swfinsertssa;
+			productName = swfinsertssa;
+			productReference = 1B0DD6930B65627B00CEB44D /* swfinsertssa */;
+			productType = "com.apple.product-type.tool";
+		};
+		1B8D93F80B6050D700FEF20D /* swfcompress */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B8D94010B60511700FEF20D /* Build configuration list for PBXNativeTarget "swfcompress" */;
+			buildPhases = (
+				1B8D93F60B6050D700FEF20D /* Sources */,
+				1B8D93F70B6050D700FEF20D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = swfcompress;
+			productName = swfcompress;
+			productReference = 1B8D93F90B6050D700FEF20D /* swfcompress */;
+			productType = "com.apple.product-type.tool";
+		};
+		8DD76F960486AA7600D96B5E /* swfstrings */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB927408733DD40010E9CD /* Build configuration list for PBXNativeTarget "swfstrings" */;
+			buildPhases = (
+				8DD76F990486AA7600D96B5E /* Sources */,
+				8DD76F9B0486AA7600D96B5E /* Frameworks */,
+				8DD76F9E0486AA7600D96B5E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = swfstrings;
+			productInstallPath = "$(HOME)/bin";
+			productName = FlashTranslator;
+			productReference = 8DD76FA10486AA7600D96B5E /* swfstrings */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB927808733DD40010E9CD /* Build configuration list for PBXProject "FlashTranslator" */;
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* FlashTranslator */;
+			projectDirPath = "";
+			targets = (
+				8DD76F960486AA7600D96B5E /* swfstrings */,
+				1B0DD6080B65623100CEB44D /* swfextractssa */,
+				1B0DD6920B65627B00CEB44D /* swfinsertssa */,
+				1B8D93F80B6050D700FEF20D /* swfcompress */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1B0DD6060B65623100CEB44D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BFF674F0B658B6600E0900B /* SWFFont.m in Sources */,
+				1BFF68270B66DFD600E0900B /* swfextractssa.m in Sources */,
+				1BFF682A0B66DFDE00E0900B /* SWFGeometry.m in Sources */,
+				1BFF682B0B66DFE100E0900B /* SWFParser.m in Sources */,
+				1BFF682C0B66DFE400E0900B /* SWFText.m in Sources */,
+				1BFF682D0B66DFE700E0900B /* CSFileHandle.m in Sources */,
+				1BFF682E0B66DFE700E0900B /* CSHandle.m in Sources */,
+				1BFF68300B66DFEB00E0900B /* CSZlibHandle.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B0DD6900B65627B00CEB44D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BFF67500B658B6600E0900B /* SWFFont.m in Sources */,
+				1BFF6A270B69530400E0900B /* swfinsertssa.m in Sources */,
+				1BFF6A2A0B69531F00E0900B /* CSFileHandle.m in Sources */,
+				1BFF6A2B0B69532100E0900B /* CSHandle.m in Sources */,
+				1BFF6A2C0B69532200E0900B /* CSZlibHandle.m in Sources */,
+				1BFF6A2E0B69532A00E0900B /* SWFGeometry.m in Sources */,
+				1BFF6A2F0B69533400E0900B /* SWFParser.m in Sources */,
+				1BFF6A300B69533700E0900B /* SWFText.m in Sources */,
+				1BFF6AC10B69542300E0900B /* SWFWriter.m in Sources */,
+				1BFF6B200B6964AB00E0900B /* CSMemoryHandle.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B8D93F60B6050D700FEF20D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B8D93FC0B6050ED00FEF20D /* swfcompress.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DD76F990486AA7600D96B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DD76F9A0486AA7600D96B5E /* swfstrings.m in Sources */,
+				1B8D940C0B60514900FEF20D /* CSFileHandle.m in Sources */,
+				1B8D94150B6137B200FEF20D /* CSZlibHandle.m in Sources */,
+				1B8D94170B6137B200FEF20D /* CSHandle.m in Sources */,
+				1BFF652B0B61CE2A00E0900B /* SWFGeometry.m in Sources */,
+				1B0DD6A40B6562F700CEB44D /* SWFParser.m in Sources */,
+				1BFF67470B658B4600E0900B /* SWFText.m in Sources */,
+				1BFF674E0B658B6600E0900B /* SWFFont.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1B0DD68E0B65627300CEB44D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = "$(HOME)/bin";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = swfextractssa;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1B0DD68F0B65627300CEB44D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = "$(HOME)/bin";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = swfextractssa;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		1B0DD6970B65629F00CEB44D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = "$(HOME)/bin";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = swfinsertssa;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1B0DD6980B65629F00CEB44D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = "$(HOME)/bin";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = swfinsertssa;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		1B8D94020B60511700FEF20D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = "$(HOME)/bin";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = swfcompress;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1B8D94030B60511700FEF20D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = "$(HOME)/bin";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = swfcompress;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		1DEB927508733DD40010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FlashTranslator_Prefix.pch;
+				INSTALL_PATH = "$(HOME)/bin";
+				PRODUCT_NAME = swfstrings;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1DEB927608733DD40010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FlashTranslator_Prefix.pch;
+				INSTALL_PATH = "$(HOME)/bin";
+				PRODUCT_NAME = swfstrings;
+			};
+			name = Release;
+		};
+		1DEB927908733DD40010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Debug;
+		};
+		1DEB927A08733DD40010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1B0DD68D0B65627300CEB44D /* Build configuration list for PBXNativeTarget "swfextractssa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B0DD68E0B65627300CEB44D /* Debug */,
+				1B0DD68F0B65627300CEB44D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B0DD6960B65629F00CEB44D /* Build configuration list for PBXNativeTarget "swfinsertssa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B0DD6970B65629F00CEB44D /* Debug */,
+				1B0DD6980B65629F00CEB44D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B8D94010B60511700FEF20D /* Build configuration list for PBXNativeTarget "swfcompress" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B8D94020B60511700FEF20D /* Debug */,
+				1B8D94030B60511700FEF20D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB927408733DD40010E9CD /* Build configuration list for PBXNativeTarget "swfstrings" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB927508733DD40010E9CD /* Debug */,
+				1DEB927608733DD40010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB927808733DD40010E9CD /* Build configuration list for PBXProject "FlashTranslator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB927908733DD40010E9CD /* Debug */,
+				1DEB927A08733DD40010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}
