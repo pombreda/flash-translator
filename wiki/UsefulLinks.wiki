@@ -1,0 +1,6 @@
+#summary Links to various resources for development
+
+= Specs =
+
+* http://sswf.sourceforge.net/SWFalexref.html - Alexis' SWF Reference
+
