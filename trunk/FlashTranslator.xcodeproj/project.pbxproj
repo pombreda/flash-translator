@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1B0DD6A30B6562F700CEB44D /* SWFParser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B0DD6A10B6562F700CEB44D /* SWFParser.h */; };
 		1B0DD6A40B6562F700CEB44D /* SWFParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DD6A20B6562F700CEB44D /* SWFParser.m */; };
+		1B734EBE0B710DE1006191A2 /* SWFShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B734EBD0B710DE1006191A2 /* SWFShape.m */; };
+		1B734EBF0B710DE1006191A2 /* SWFShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B734EBD0B710DE1006191A2 /* SWFShape.m */; };
 		1B8D93FC0B6050ED00FEF20D /* swfcompress.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D93F20B6050BE00FEF20D /* swfcompress.m */; };
 		1B8D940B0B60514900FEF20D /* CSFileHandle.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B8D94090B60514900FEF20D /* CSFileHandle.h */; };
 		1B8D940C0B60514900FEF20D /* CSFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D940A0B60514900FEF20D /* CSFileHandle.m */; };
@@ -76,6 +78,8 @@
 		1B0DD6930B65627B00CEB44D /* swfinsertssa */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swfinsertssa; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B0DD6A10B6562F700CEB44D /* SWFParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFParser.h; sourceTree = "<group>"; };
 		1B0DD6A20B6562F700CEB44D /* SWFParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFParser.m; sourceTree = "<group>"; };
+		1B734EBC0B710DE1006191A2 /* SWFShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFShape.h; sourceTree = "<group>"; };
+		1B734EBD0B710DE1006191A2 /* SWFShape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFShape.m; sourceTree = "<group>"; };
 		1B8D93E40B604F9700FEF20D /* swfextractssa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = swfextractssa.m; sourceTree = "<group>"; };
 		1B8D93F20B6050BE00FEF20D /* swfcompress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = swfcompress.m; sourceTree = "<group>"; };
 		1B8D93F90B6050D700FEF20D /* swfcompress */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swfcompress; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +171,8 @@
 				1BFF67450B658B4600E0900B /* SWFText.m */,
 				1BFF674B0B658B6600E0900B /* SWFFont.h */,
 				1BFF674C0B658B6600E0900B /* SWFFont.m */,
+				1B734EBC0B710DE1006191A2 /* SWFShape.h */,
+				1B734EBD0B710DE1006191A2 /* SWFShape.m */,
 				1BFF65280B61CE2A00E0900B /* SWFGeometry.h */,
 				1BFF65290B61CE2A00E0900B /* SWFGeometry.m */,
 				1BFF69AF0B680AA600E0900B /* IO Classes */,
@@ -312,6 +318,7 @@
 				1BFF682D0B66DFE700E0900B /* CSFileHandle.m in Sources */,
 				1BFF682E0B66DFE700E0900B /* CSHandle.m in Sources */,
 				1BFF68300B66DFEB00E0900B /* CSZlibHandle.m in Sources */,
+				1B734EBF0B710DE1006191A2 /* SWFShape.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +336,7 @@
 				1BFF6A300B69533700E0900B /* SWFText.m in Sources */,
 				1BFF6AC10B69542300E0900B /* SWFWriter.m in Sources */,
 				1BFF6B200B6964AB00E0900B /* CSMemoryHandle.m in Sources */,
+				1B734EBE0B710DE1006191A2 /* SWFShape.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
