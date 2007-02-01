@@ -1,8 +1,6 @@
 #import "SWFGeometry.h"
 
 
-static inline int imax(int a,int b) { return a>b?a:b; }
-static inline int imax4(int a,int b,int c,int d) { return imax(imax(a,b),imax(c,d)); }
 
 SWFRect SWFParseRect(CSHandle *fh)
 {
@@ -23,7 +21,7 @@ void SWFWriteRect(SWFRect rect,CSHandle *fh)
 	int xmax=rect.x+rect.width;
 	int ymin=rect.y;
 	int ymax=rect.y+rect.height;
-	int bits=imax4(SWFCountSignedBits(xmin),SWFCountSignedBits(xmax),SWFCountSignedBits(ymin),SWFCountSignedBits(ymax));
+	int bits=SWFCountSignedBits4(xmin,xmax,ymin,ymax);
 
 	[fh writeSignedBits:5 value:bits];
 	[fh writeSignedBits:bits value:xmin];
@@ -48,8 +46,8 @@ SWFMatrix SWFParseMatrix(CSHandle *fh)
 	if([fh readBits:1])
 	{
 		int bits=[fh readBits:5];
-		a01=[fh readSignedBits:bits]; // may be wrong order
 		a10=[fh readSignedBits:bits];
+		a01=[fh readSignedBits:bits];
 	}
 
 	int bits=[fh readBits:5];
@@ -65,7 +63,7 @@ void SWFWriteMatrix(SWFMatrix mtx,CSHandle *fh)
 {
 	if(mtx.a00!=1<<16||mtx.a11!=1<<16)
 	{
-		int bits=imax(SWFCountSignedBits(mtx.a00),SWFCountSignedBits(mtx.a11));
+		int bits=SWFCountSignedBits2(mtx.a00,mtx.a11);
 		[fh writeBits:1 value:1];
 		[fh writeBits:5 value:bits];
 		[fh writeBits:bits value:mtx.a00];
@@ -75,21 +73,25 @@ void SWFWriteMatrix(SWFMatrix mtx,CSHandle *fh)
 
 	if(mtx.a01!=0||mtx.a10!=0)
 	{
-		int bits=imax(SWFCountSignedBits(mtx.a01),SWFCountSignedBits(mtx.a10));
+		int bits=SWFCountSignedBits2(mtx.a01,mtx.a10);
 		[fh writeBits:1 value:1];
 		[fh writeBits:5 value:bits];
-		[fh writeBits:bits value:mtx.a01];
 		[fh writeBits:bits value:mtx.a10];
+		[fh writeBits:bits value:mtx.a01];
 	}
 	else [fh writeBits:1 value:0];
 
-	int bits=imax(SWFCountSignedBits(mtx.a02),SWFCountSignedBits(mtx.a12));
+	int bits=SWFCountSignedBits2(mtx.a02,mtx.a12);
 	[fh writeBits:5 value:bits];
 	[fh writeBits:bits value:mtx.a02];
 	[fh writeBits:bits value:mtx.a12];
 
 	[fh flushWriteBits];
 }
+
+
+
+static inline int imax(int a,int b) { return a>b?a:b; }
 
 int SWFCountBits(uint32_t val)
 {
@@ -103,9 +105,31 @@ int SWFCountBits(uint32_t val)
 	return res+1;
 }
 
+
+int SWFCountBits2(uint32_t val1,uint32_t val2)
+{
+	return imax(SWFCountBits(val1),SWFCountBits(val2));
+}
+
+int SWFCountBits4(uint32_t val1,uint32_t val2,uint32_t val3,uint32_t val4)
+{
+	return imax(SWFCountBits2(val1,val2),SWFCountBits2(val3,val4));
+}
+
+
 int SWFCountSignedBits(int32_t val)
 {
 	if(val==0) return 0;
 	else if(val<0) return SWFCountBits(~val)+1;
 	else return SWFCountBits(val)+1;
+}
+
+int SWFCountSignedBits2(int32_t val1,int32_t val2)
+{
+	return imax(SWFCountSignedBits(val1),SWFCountSignedBits(val2));
+}
+
+int SWFCountSignedBits4(int32_t val1,int32_t val2,int32_t val3,int32_t val4)
+{
+	return imax(SWFCountSignedBits2(val1,val2),SWFCountSignedBits2(val3,val4));
 }
