@@ -41,13 +41,13 @@
 	NSString *text;
 	SWFFont *font;
 	int height;
-	int move_x,move_y;
+	SWFPoint position;
 	int red,green,blue,alpha;
 	int *advances;
 }
 
-+(SWFTextRecord *)recordWithText:(NSString *)text font:(SWFFont *)fnt height:(int)h
-moveX:(int)x moveY:(int)y red:(int)r green:(int)g blue:(int)b alpha:(int)a advances:(int *)adv;
++(SWFTextRecord *)recordWithText:(NSString *)txt font:(SWFFont *)fnt height:(int)h
+position:(SWFPoint)pos red:(int)r green:(int)g blue:(int)b alpha:(int)a advances:(int *)adv;
 
 -(id)init;
 -(void)dealloc;
@@ -55,19 +55,19 @@ moveX:(int)x moveY:(int)y red:(int)r green:(int)g blue:(int)b alpha:(int)a advan
 -(NSString *)text;
 -(SWFFont *)font;
 -(int)height;
--(int)moveX;
--(int)moveY;
+-(SWFPoint)position;
 -(int)red;
 -(int)green;
 -(int)blue;
 -(int)alpha;
 -(int *)advances;
 
+-(int)length;
+
 -(void)setText:(NSString *)newtext;
 -(void)setFont:(SWFFont *)newfont;
 -(void)setHeight:(int)h;
--(void)setMoveX:(int)x;
--(void)setMoveY:(int)y;
+-(void)setPosition:(SWFPoint)pos;
 -(void)setRed:(int)r;
 -(void)setGreen:(int)g;
 -(void)setBlue:(int)b;

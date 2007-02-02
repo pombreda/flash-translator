@@ -7,23 +7,17 @@
 
 @interface SWFFont:NSObject
 {
-	int ident,lang;
+	int ident,flags,language;
 	NSString *name;
+	BOOL large;
 
 	NSMutableArray *glyphs;
 	NSMutableData *glyphtable;
+
+	int ascent,descent,leading;
 	NSMutableData *advtable;
+	NSMutableData *recttable;
 	NSMutableDictionary *kerning;
-
-	BOOL haslayout;
-	int ascent,descent,leading_height;
-
-//			signed short		f_font2_advance[f_font2_glyphs_count];
-//			swf_rect		f_font2_bounds[f_font2_glyphs_count];
-//			signed short		f_font2_kerning_count;
-//			swf_kerning		f_font2_kerning[f_font2_kerning_count];
-
-//	unichar *glyphtable;
 }
 
 -(id)initWithName:(NSString *)fontname identifier:(int)identifier;
@@ -32,10 +26,23 @@
 -(void)dealloc;
 
 -(void)write:(SWFWriter *)writer;
--(void)writeToHandle:(CSHandle *)fh;
+-(void)write:(SWFWriter *)writer withLayoutInfo:(BOOL)writelayout;
+-(void)writeToHandle:(CSHandle *)fh withLayoutInfo:(BOOL)writelayout;
 
 -(int)identifier;
+-(int)language;
 -(NSString *)name;
+-(BOOL)hasLargeGlyphs;
+-(BOOL)hasLayoutInfo;
+-(int)ascent;
+-(int)descent;
+-(int)leading;
+
+-(void)setLanguage:(int)lang;
+-(void)setHasLargeGlyphs:(BOOL)largeglyphs;
+-(void)setAscent:(int)asc;
+-(void)setDescent:(int)desc;
+-(void)setLeading:(int)lead;
 
 -(void)addGlyph:(SWFShape *)glyph character:(unichar)chr advance:(int)adv;
 -(void)setKerning:(int)kerndelta forCharacter:(unichar)chr1 andCharacter:(unichar)chr2;

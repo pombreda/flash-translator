@@ -28,7 +28,7 @@
 
 @interface SWFShapeRecord:NSObject
 {
-	int type,fill;
+	int type;
 	SWFPoint point,control;
 }
 
@@ -36,7 +36,6 @@
 -(id)initWithType:(int)t point:(SWFPoint)p control:(SWFPoint)c;
 
 -(int)type;
--(int)fill;
 -(SWFPoint)point;
 -(SWFPoint)control;
 
