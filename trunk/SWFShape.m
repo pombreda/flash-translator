@@ -71,16 +71,16 @@
 					[self moveTo:SWFMakePoint(x,y)];
 				}
 
+				//if(flags&2) // forbidden
+				//{
+				//	[fh readBits:fill_bits];
+				//}
+
 				if(flags&4)
 				{
 					int fill=[fh readBits:fill_bits];
 					if(fill!=1) [NSException raise:@"SWFShapeParsingException" format:@"Encountered shape setting fill style 1 to 0 in a font definition."];
 				}
-
-				//if(flags&2) // forbidden
-				//{
-				//	[fh readBits:fill_bits];
-				//}
 
 				//if(flags&8) // line_bits assumed to be 0
 				//{
@@ -119,97 +119,92 @@
 
 -(void)writeToHandle:(CSHandle *)fh
 {
+	[fh writeUInt8:0x10];
+
 	NSEnumerator *enumerator=[shaperecords objectEnumerator];
-	SWFShapeRecord *record;
-	while(record=[enumerator nextObject])
+	SWFShapeRecord *record=[enumerator nextObject];
+
+	if(record)
 	{
-		[fh writeUInt8:0x10];
+		if([record type]!=SWFShapeMoveRecord)
+		[NSException raise:@"SWFShapeSavingException" format:@"Shapes must start with a move record."];
 
-		NSEnumerator *enumerator=[shaperecords objectEnumerator];
-		SWFShapeRecord *record=[enumerator nextObject];
+		int bits;
+		SWFPoint point,control;
 
-		if(record)
+		[fh writeBits:6 value:13];
+		point=[record point];
+		bits=SWFCountSignedBits2(point.x,point.y);
+		[fh writeBits:5 value:bits];
+		[fh writeSignedBits:bits value:point.x];
+		[fh writeSignedBits:bits value:point.y];
+		[fh writeBits:1 value:1];
+
+		int x=point.x,y=point.y;
+
+		while(record=[enumerator nextObject])
 		{
-			if([record type]!=SWFShapeMoveRecord)
-			[NSException raise:@"SWFShapeSavingException" format:@"Shapes must start with a move record."];
-
-			int bits;
-			SWFPoint point,control;
-
-			[fh writeBits:6 value:13];
-			point=[record point];
-			bits=SWFCountSignedBits2(point.x,point.y);
-			[fh writeBits:5 value:bits];
-			[fh writeSignedBits:bits value:point.x];
-			[fh writeSignedBits:bits value:point.y];
-			[fh writeBits:1 value:1];
-
-			int x=point.x,y=point.y;
-
-			while(record=[enumerator nextObject])
+			switch([record type])
 			{
-				switch([record type])
-				{
-					case SWFShapeMoveRecord:
-						[fh writeBits:6 value:1];
+				case SWFShapeMoveRecord:
+					[fh writeBits:6 value:1];
 
-						point=[record point];
-						bits=SWFCountSignedBits2(point.x,point.y);
-						[fh writeBits:5 value:bits];
-						[fh writeSignedBits:bits value:point.x];
-						[fh writeSignedBits:bits value:point.y];
-					break;
+					point=[record point];
+					bits=SWFCountSignedBits2(point.x,point.y);
+					[fh writeBits:5 value:bits];
+					[fh writeSignedBits:bits value:point.x];
+					[fh writeSignedBits:bits value:point.y];
+				break;
 
-					case SWFShapeLineRecord:
-						[fh writeBits:2 value:3];
+				case SWFShapeLineRecord:
+					[fh writeBits:2 value:3];
 
-						point=[record point];
-						if(point.x==x)
-						{
-							bits=SWFCountSignedBits(point.x);
-							[fh writeBits:4 value:bits-2];
-							[fh writeBits:2 value:0];
-							[fh writeSignedBits:bits value:point.x-x];
-						}
-						else if(point.y==y)
-						{
-							bits=SWFCountSignedBits(point.y);
-							[fh writeBits:4 value:bits-2];
-							[fh writeBits:2 value:1];
-							[fh writeSignedBits:bits value:point.y-y];
-						}
-						else
-						{
-							bits=SWFCountSignedBits2(point.x,point.y);
-							[fh writeBits:4 value:bits-2];
-							[fh writeBits:1 value:1];
-							[fh writeSignedBits:bits value:point.x-x];
-							[fh writeSignedBits:bits value:point.y-y];
-						}
-					break;
-
-					case SWFShapeCurveRecord:
-						[fh writeBits:2 value:2];
-
-						point=[record point];
-						control=[record control];
-						bits=SWFCountSignedBits4(point.x,point.y,control.x,control.y);
+					point=[record point];
+					if(point.y==y)
+					{
+						bits=SWFCountSignedBits(point.x-x);
 						[fh writeBits:4 value:bits-2];
-						[fh writeSignedBits:bits value:control.x-x];
-						[fh writeSignedBits:bits value:control.y-y];
-						[fh writeSignedBits:bits value:point.x-control.x];
-						[fh writeSignedBits:bits value:point.y-control.y];
-					break;
-				}
+						[fh writeBits:2 value:0];
+						[fh writeSignedBits:bits value:point.x-x];
+					}
+					else if(point.x==x)
+					{
+						bits=SWFCountSignedBits(point.y-y);
+						[fh writeBits:4 value:bits-2];
+						[fh writeBits:2 value:1];
+						[fh writeSignedBits:bits value:point.y-y];
+					}
+					else
+					{
+						bits=SWFCountSignedBits2(point.x-x,point.y-y);
+						[fh writeBits:4 value:bits-2];
+						[fh writeBits:1 value:1];
+						[fh writeSignedBits:bits value:point.x-x];
+						[fh writeSignedBits:bits value:point.y-y];
+					}
+				break;
 
-				x=point.x;
-				y=point.y;
+				case SWFShapeCurveRecord:
+					[fh writeBits:2 value:2];
+
+					point=[record point];
+					control=[record control];
+					bits=SWFCountSignedBits4(control.x-x,control.y-y,point.x-control.x,point.y-control.y);
+					[fh writeBits:4 value:bits-2];
+					[fh writeSignedBits:bits value:control.x-x];
+					[fh writeSignedBits:bits value:control.y-y];
+					[fh writeSignedBits:bits value:point.x-control.x];
+					[fh writeSignedBits:bits value:point.y-control.y];
+				break;
 			}
-		}
 
-		[fh writeBits:6 value:0];
-		[fh flushWriteBits];
+			x=point.x;
+			y=point.y;
+		}
 	}
+
+	[fh writeBits:6 value:0];
+	[fh flushWriteBits];
 }
 
 @end
@@ -224,7 +219,6 @@
 	{
 		type=t;
 		point=p;
-//		fill=f;
 	}
 	return self;
 }
@@ -236,13 +230,11 @@
 		type=t;
 		point=p;
 		control=c;
-//		fill=f;
 	}
 	return self;
 }
 
 -(int)type { return type; }
--(int)fill { return fill; }
 -(SWFPoint)point { return point; }
 -(SWFPoint)control { return control; }
 

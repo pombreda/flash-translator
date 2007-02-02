@@ -1,6 +1,7 @@
 #import "SWFFont.h"
 #import "SWFParser.h"
 #import "SWFWriter.h"
+#import "SWFShape.h"
 
 @implementation SWFFont
 
@@ -9,16 +10,18 @@
 	if(self=[super init])
 	{
 		ident=identifier;
-		flags=0;
-		lang=0;
+		language=0;
+		flags=4|8; // wide codes, wide offsets
 		name=[fontname retain];
+		large=NO;
 
 		glyphs=[[NSMutableArray array] retain];
 		glyphtable=[[NSMutableData data] retain];
-		advtable=[[NSMutableData data] retain];
-		kerning=[[NSMutableDictionary dictionary] retain];
 
-		haslayout=NO;
+		ascent=descent=leading=0;
+		advtable=[[NSMutableData data] retain];
+		recttable=nil;
+		kerning=[[NSMutableDictionary dictionary] retain];
 	}
 
 	return self;
@@ -38,11 +41,18 @@
 	{
 		glyphs=[[NSMutableArray array] retain];
 		glyphtable=nil;
-		advtable=nil;
 
+		ascent=descent=leading=0;
+		advtable=nil;
+		recttable=nil;
+		kerning=[[NSMutableDictionary dictionary] retain];
+
+		large=(tag==SWFDefineFont3Tag);
+
+		// Note: does not properly handle unicode/shift_jis flags for < v6.0
 		ident=[fh readUInt16LE];
 		flags=[fh readUInt8];
-		lang=[fh readUInt8];
+		language=[fh readUInt8];
 
 		int namelen=[fh readUInt8];
 		char namebuf[namelen];
@@ -84,8 +94,38 @@
 			else glyphptr[i]=[fh readUInt8];
 		}
 
-		haslayout=NO;
-		// should load the rest of the font info
+		if(flags&128)
+		{
+			ascent=[fh readInt16LE];
+			descent=[fh readInt16LE];
+			leading=[fh readInt16LE];
+
+			advtable=[[NSMutableData dataWithLength:numglyphs*sizeof(int)] retain];
+			int *advptr=(int *)[advtable mutableBytes];
+			for(int i=0;i<numglyphs;i++) advptr[i]=[fh readInt16LE];
+
+			recttable=[[NSMutableData dataWithLength:numglyphs*sizeof(SWFRect)] retain];
+			SWFRect *rectptr=(SWFRect *)[recttable mutableBytes];
+			for(int i=0;i<numglyphs;i++) rectptr[i]=SWFParseRect(fh);
+
+			int numkern=[fh readUInt16LE];
+			for(int i=0;i<numkern;i++)
+			{
+				int chr1,chr2;
+				if(flags&4)
+				{
+					chr1=[self decodeGlyph:[fh readUInt16LE]];
+					chr2=[self decodeGlyph:[fh readUInt16LE]];
+				}
+				else
+				{
+					chr1=[self decodeGlyph:[fh readUInt8]];
+					chr2=[self decodeGlyph:[fh readUInt8]];
+				}
+				int kern=[fh readInt16LE];
+				[self setKerning:kern forCharacter:chr1 andCharacter:chr2];
+			}
+		}
 	}
 
 	return self;
@@ -103,26 +143,130 @@
 }
 
 
--(void)write:(SWFWriter *)writer
-{
-/*	int tag;
-	if([writer version]>=3) tag=SWFDefineText2Tag;
-	else tag=SWFDefineTextTag;*/
+-(void)write:(SWFWriter *)writer { [self write:writer withLayoutInfo:[self hasLayoutInfo]]; }
 
-	[writer startTag:SWFDefineFont2Tag];
-	[self writeToHandle:[writer handle]];
+-(void)write:(SWFWriter *)writer withLayoutInfo:(BOOL)writelayout
+{
+	if(large&&[writer version]<3) [NSException raise:@"SWFFontSavingException" format:@"Attempted to save large glyphs in a SWF file older than version 3."];
+
+	int tag;
+	if(large) tag=SWFDefineFont3Tag;
+	else tag=SWFDefineFont2Tag;
+
+	[writer startTag:tag];
+	[self writeToHandle:[writer handle] withLayoutInfo:writelayout];
 	[writer endTag];
 }
 
--(void)writeToHandle:(CSHandle *)fh
+-(void)writeToHandle:(CSHandle *)fh withLayoutInfo:(BOOL)writelayout
 {
+	if(writelayout&&![self hasLayoutInfo]) [NSException raise:@"SWFFontSavingException" format:@"Attempted to save layout info for a font that does not have it."];
+
 	[fh writeUInt16LE:ident];
+
+	int writeflags=flags;
+	if(!writelayout) writeflags&=~128;
+	[fh writeUInt8:writeflags];
+
+	[fh writeUInt8:language];
+
+	const char *namestr=[name UTF8String];
+	int namelen=strlen(namestr);
+	[fh writeUInt8:namelen];
+	[fh writeBytes:namelen fromBuffer:namestr];
+
+	int numglyphs=[glyphs count];
+	[fh writeUInt16LE:numglyphs];
+
+	// Save offset to start of table
+	off_t baseoffs=[fh offsetInFile];
+
+	// Write first glyph offset
+	if(flags&8) [fh writeUInt32LE:4*numglyphs+4];
+	else [fh writeUInt16LE:2*numglyphs+2];
+
+	// Save position
+	off_t nextoffs=[fh offsetInFile];
+
+	// Write dummy values for the rest of the offsets
+	for(int i=0;i<numglyphs;i++) if(flags&8) [fh writeUInt32LE:0];
+	else [fh writeUInt16LE:0];
+
+	// Write glyphs, seeking back to fill in the offset table after each
+	for(int i=0;i<numglyphs;i++)
+	{
+		[[glyphs objectAtIndex:i] writeToHandle:fh];
+
+		off_t curroffs=[fh offsetInFile];
+		[fh seekToFileOffset:nextoffs];
+
+		if(flags&8) [fh writeUInt32LE:curroffs-baseoffs];
+		else [fh writeUInt16LE:curroffs-baseoffs];
+
+		nextoffs=[fh offsetInFile];
+		[fh seekToFileOffset:curroffs];
+	}
+
+	const unichar *glyphptr=(const unichar *)[glyphtable bytes];
+	for(int i=0;i<numglyphs;i++)
+	{
+		if(flags&4) [fh writeUInt16LE:glyphptr[i]];
+		else [fh writeUInt8:glyphptr[i]];
+	}
+
+	if(writelayout)
+	{
+		[fh writeInt16LE:ascent];
+		[fh writeInt16LE:descent];
+		[fh writeInt16LE:leading];
+
+		const int *advptr=(const int *)[advtable bytes];
+		for(int i=0;i<numglyphs;i++) [fh writeInt16LE:advptr[i]];
+
+		const SWFRect *rectptr=(const SWFRect *)[recttable bytes];
+		for(int i=0;i<numglyphs;i++) SWFWriteRect(rectptr[i],fh);
+
+		int numkern=[kerning count];
+		[fh writeUInt16BE:numkern];
+
+		NSEnumerator *enumerator=[kerning keyEnumerator];
+		NSNumber *key;
+		while(key=[enumerator nextObject])
+		{
+			uint32_t keyval=[key unsignedLongValue];
+			int chr1=keyval>>16;
+			int chr2=keyval&0xffff;
+			int kern=[[kerning objectForKey:key] intValue];
+			if(flags&4)
+			{
+				[fh writeUInt16LE:chr1];
+				[fh writeUInt16LE:chr2];
+			}
+			else
+			{
+				[fh writeUInt8:chr1];
+				[fh writeUInt8:chr2];
+			}
+			[fh writeInt16LE:kern];
+		}
+	}
 }
 
 
 -(int)identifier { return ident; }
-
+-(int)language { return language; }
 -(NSString *)name { return name; }
+-(BOOL)hasLargeGlyphs { return large; }
+-(BOOL)hasLayoutInfo { return flags&128?YES:NO; }
+-(int)ascent { return ascent; }
+-(int)descent { return descent; }
+-(int)leading { return leading; }
+
+-(void)setLanguage:(int)lang { language=lang; }
+-(void)setHasLargeGlyphs:(BOOL)largeglyphs { large=largeglyphs; }
+-(void)setAscent:(int)asc { ascent=asc; }
+-(void)setDescent:(int)desc { descent=desc; }
+-(void)setLeading:(int)lead { leading=lead; }
 
 
 
@@ -152,6 +296,7 @@
 -(unichar)decodeGlyph:(int)glyph
 {
 	const unichar *glyphptr=(const unichar *)[glyphtable bytes];
+	if(glyph<0||glyph>=[glyphs count]) return 0;
 	
 	return glyphptr[glyph];
 }

@@ -43,7 +43,7 @@
 		SWFFont *font;
 		int height=0;
 		int r=0,g=0,b=0,a=255;
-		int move_x=0,move_y=0;
+		SWFPoint pos=SWFMakePoint(0,0);
 
 		for(;;)
 		{
@@ -69,8 +69,8 @@
 				}
 			}
 
-			if(flags&2) move_x=[fh readUInt16LE];
-			if(flags&1) move_y=[fh readUInt16LE];
+			if(flags&2) pos.x=[fh readUInt16LE];
+			if(flags&1) pos.y=[fh readUInt16LE];
 			if(flags&8) height=[fh readUInt16LE];
 
 			uint8_t count=[fh readUInt8];
@@ -82,8 +82,12 @@
 				[str appendFormat:@"%C",[font decodeGlyph:[fh readBits:glyphbits]]];
 				advances[i]=[fh readSignedBits:advbits];
 			}
-			[self addTextRecord:[SWFTextRecord recordWithText:str font:font height:height
-			moveX:move_x moveY:move_y red:r green:g blue:b alpha:a advances:advances]];
+
+			SWFTextRecord *record=[SWFTextRecord recordWithText:str font:font height:height
+			position:pos red:r green:g blue:b alpha:a advances:advances];
+			[self addTextRecord:record];
+
+			pos.x+=[record length];
 		}
 	}
 	return self;
@@ -111,7 +115,6 @@
 	[fh writeUInt16LE:ident];
 	SWFWriteRect(rect,fh);
 	SWFWriteMatrix(mtx,fh);
-//[fh writeUInt8:0];
 
 	int glyphbits=16;
 	int advbits=16;
@@ -122,7 +125,7 @@
 	SWFFont *font=nil;
 	int height=0;
 	int r=-1,g=-1,b=-1,a=-1;
-	int move_x=0,move_y=0;
+	SWFPoint pos=SWFMakePoint(0,0);
 
 	NSEnumerator *enumerator=[textrecords objectEnumerator];
 	SWFTextRecord *record;
@@ -146,17 +149,10 @@
 			a=[record alpha];
 		}
 
-		if(move_x!=[record moveX])
-		{
-			flags|=2;
-			move_x=[record moveX];
-		}
-
-		if(move_y!=[record moveY])
-		{
-			flags|=1;
-			move_y=[record moveY];
-		}
+		SWFPoint newpos=[record position];
+		if(pos.x!=newpos.x) flags|=2;
+		if(pos.y!=newpos.y) flags|=1;
+		pos=newpos;
 
 		[fh writeUInt8:flags];
 
@@ -179,8 +175,8 @@
 			}
 		}
 
-		if(flags&2) [fh writeUInt16LE:move_x];
-		if(flags&1) [fh writeUInt16LE:move_y];
+		if(flags&2) [fh writeUInt16LE:pos.x];
+		if(flags&1) [fh writeUInt16LE:pos.y];
 		if(flags&8) [fh writeUInt16LE:height];
 
 		NSString *str=[record text];
@@ -194,8 +190,11 @@
 			[fh writeBits:glyphbits value:[font encodeGlyph:[str characterAtIndex:i]]];
 			[fh writeSignedBits:advbits value:advances[i]];
 		}
+
+		pos.x+=[record length];
+
+		[fh flushWriteBits];
 	}
-	[fh flushWriteBits];
 	[fh writeUInt8:0];
 }
 
@@ -231,14 +230,13 @@
 @implementation SWFTextRecord
 
 +(SWFTextRecord *)recordWithText:(NSString *)txt font:(SWFFont *)fnt height:(int)h
-moveX:(int)x moveY:(int)y red:(int)r green:(int)g blue:(int)b alpha:(int)a advances:(int *)adv
+position:(SWFPoint)pos red:(int)r green:(int)g blue:(int)b alpha:(int)a advances:(int *)adv
 {
 	SWFTextRecord *rec=[[[SWFTextRecord alloc] init] autorelease];
 	[rec setText:txt];
 	[rec setFont:fnt];
 	[rec setHeight:h];
-	[rec setMoveX:x];
-	[rec setMoveY:y];
+	[rec setPosition:pos];
 	[rec setRed:r];
 	[rec setGreen:g];
 	[rec setBlue:b];
@@ -254,7 +252,7 @@ moveX:(int)x moveY:(int)y red:(int)r green:(int)g blue:(int)b alpha:(int)a advan
 		text=nil;
 		font=nil;
 		height=0;
-		move_x=move_y=0;
+		position=SWFZeroPoint;
 		red=green=blue=0;
 		alpha=255;
 		advances=NULL;
@@ -273,19 +271,25 @@ moveX:(int)x moveY:(int)y red:(int)r green:(int)g blue:(int)b alpha:(int)a advan
 -(SWFFont *)font { return font; }
 -(NSString *)text { return text; }
 -(int)height { return height; }
--(int)moveX { return move_x; }
--(int)moveY { return move_y; }
+-(SWFPoint)position { return position; }
 -(int)red { return red; }
 -(int)green { return green; }
 -(int)blue { return blue; }
 -(int)alpha { return alpha; }
 -(int *)advances { return advances; }
 
+-(int)length
+{
+	int len=0;
+	int count=[text length];
+	for(int i=0;i<count;i++) len+=advances[i];
+	return len;
+}
+
 -(void)setFont:(SWFFont *)newfont { [font autorelease]; font=[newfont retain]; }
 -(void)setText:(NSString *)newtext { [text autorelease]; text=[newtext retain]; }
 -(void)setHeight:(int)h { height=h; }
--(void)setMoveX:(int)x { move_x=x; }
--(void)setMoveY:(int)y { move_y=y; }
+-(void)setPosition:(SWFPoint)pos { position=pos; }
 -(void)setRed:(int)r { red=r; }
 -(void)setGreen:(int)g { green=g; }
 -(void)setBlue:(int)b { blue=b; }

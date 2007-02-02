@@ -3,6 +3,7 @@
 #import "SWFWriter.h"
 #import "SWFFont.h"
 #import "SWFText.h"
+#import "SWFShape.h"
 #import "CSMemoryHandle.h"
 
 void PrintEntry(SWFText *text,double appeartime,double disappeartime);
@@ -13,15 +14,8 @@ int main(int argc,char **argv)
 	if(argc!=3) return 1;
 
 	NSMutableDictionary *fonts=[NSMutableDictionary dictionary];
-/*	NSMutableDictionary *texts=[NSMutableDictionary dictionary];
-	NSMutableDictionary *depths=[NSMutableDictionary dictionary];
-	NSMutableDictionary *appeartimes=[NSMutableDictionary dictionary];*/
 	SWFParser *parser=[SWFParser parserForPath:[NSString stringWithUTF8String:argv[1]]];
 	SWFWriter *writer=[SWFWriter writerForPath:[NSString stringWithUTF8String:argv[2]] parser:parser];
-//	CSHandle *infh=[parser handle];
-//	CSHandle *outfh=[writer handle];
-
-	int lastfont;
 
 	while([parser nextTag])
 	{
@@ -31,11 +25,12 @@ int main(int argc,char **argv)
 			case SWFDefineFont2Tag:
 			case SWFDefineFont3Tag:
 			{
+//				SWFFont *font=[[[SWFFont alloc] initWithParser:parser] autorelease];
 				NSData *contents=[parser tagContents];
-				[writer writeTag:[parser tag] contents:contents];
 				SWFFont *font=[[[SWFFont alloc] initWithHandle:[CSMemoryHandle memoryHandleForReadingData:contents] tag:[parser tag]] autorelease];
+
 				[fonts setObject:font forKey:[NSNumber numberWithInt:[font identifier]]];
-				lastfont=[font identifier];
+				[font write:writer];
 			}
 			break;
 
@@ -47,14 +42,7 @@ int main(int argc,char **argv)
 				SWFText *text=[[[SWFText alloc] initWithHandle:[CSMemoryHandle memoryHandleForReadingData:contents] tag:[parser tag] fonts:fonts] autorelease];
 
 				if([text hasUndefinedFonts]) [writer writeTag:[parser tag] contents:contents];
-				else
-				{
-/*					CSMemoryHandle *outh=[CSMemoryHandle memoryHandleForWriting];
-					[text writeToHandle:outh tag:[parser tag]];
-					NSLog(@"\n%@\n%@",contents,[outh data]);
-*///					exit(0);
-					[text write:writer];
-				}
+				else [text write:writer];
 			}
 			break;
 
@@ -62,17 +50,40 @@ int main(int argc,char **argv)
 			{
 				if([parser frame]==20)
 				{
+					SWFFont *font=[[[SWFFont alloc] initWithName:@"AmeoKun" identifier:0x1242] autorelease];
+
+					SWFShape *a=[[[SWFShape alloc] init] autorelease];
+					[a moveTo:SWFMakePoint(0,1024)];
+					[a lineTo:SWFMakePoint(512,0)];
+					[a lineTo:SWFMakePoint(1024,1024)];
+					[a lineTo:SWFMakePoint(0,1024)];
+
+					SWFShape *b=[[[SWFShape alloc] init] autorelease];
+					[b moveTo:SWFMakePoint(0,0)];
+					[b lineTo:SWFMakePoint(1024,0)];
+					[b lineTo:SWFMakePoint(1024,1024)];
+					[b lineTo:SWFMakePoint(0,1024)];
+					[b lineTo:SWFMakePoint(0,0)];
+
+					SWFShape *c=[[[SWFShape alloc] init] autorelease];
+					[c moveTo:SWFMakePoint(512,0)];
+					[c curveTo:SWFMakePoint(1024,512) control:SWFMakePoint(1024,0)];
+					[c curveTo:SWFMakePoint(512,1024) control:SWFMakePoint(1024,1024)];
+					[c curveTo:SWFMakePoint(0,512) control:SWFMakePoint(0,1024)];
+					[c curveTo:SWFMakePoint(512,0) control:SWFMakePoint(0,0)];
+
+					[font addGlyph:a character:'a' advance:600];
+					[font addGlyph:b character:'b' advance:600];
+					[font addGlyph:c character:'c' advance:600];
+
+					[font write:writer];
+
 					SWFText *text=[[[SWFText alloc] initWithObjectIdentifier:0x1999] autorelease];
-					[text setRect:SWFMakeRect(0,1000,2000,2000)];
+					[text setRect:SWFMakeRect(0,0,10000,10000)];
 
-					SWFFont *font=[fonts objectForKey:[NSNumber numberWithInt:lastfont]];
-					NSString *str=[NSString stringWithFormat:@"%C%C%C%C",
-					[font decodeGlyph:0],[font decodeGlyph:1],[font decodeGlyph:2],[font decodeGlyph:3]];
-					int advances[]={500,500,500,500};
-
-					[text addTextRecord:[SWFTextRecord recordWithText:str
-					font:font height:500 moveX:1000 moveY:1000 red:255 green:0 blue:0 alpha:255
-					advances:advances]];
+					[text addTextRecord:[SWFTextRecord recordWithText:@"abc"
+					font:font height:500 position:SWFMakePoint(1000,1000) red:255 green:0 blue:0 alpha:255
+					advances:[font advancesForString:@"abc"]]];
 
 					[text write:writer];
 
