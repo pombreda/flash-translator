@@ -3,42 +3,20 @@
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
+#include <freetype/ftoutln.h> // no idea why this is needed
 
-@implementation SWFFont (FreeTypeLoader)
-
-	void importGlyphPoints( FT_Vector *points, int n, SWFShape *shape, BOOL cubic ) {
- 	        if( n==0 )  {
- 	                [shape lineTo:SWFMakePoint( points[0].x/64, points[0].y/64 )];
- 	        } else if( n==1 ) {
- 	                [shape curveTo:SWFMakePoint(points[1].x/64, points[1].y/64 )
- 	                        control:SWFMakePoint(points[0].x/64, points[0].y/64)];
- 	        } else if( n>=2 ) {
- 	                if( cubic ) {
- 	                        //fprintf(stderr,"ERROR: cubic beziers in fonts are not yet implemented.\n");
- 	                } else {
- 	                        int x1, y1, x2, y2, midx, midy;
-	                        for( int i=0; i<n-1; i++ ) {
- 	                                x1 = points[i].x;
- 	                                y1 = points[i].y;
- 	                                x2 = points[i+1].x;
- 	                                y2 = points[i+1].y;
-	                                midx = x1 + ((x2-x1)/2);
-	                                midy = y1 + ((y2-y1)/2);
-	                                [shape curveTo:SWFMakePoint(midx/64, midy/64 )
-									control:SWFMakePoint( x1/64, y1/64)];
-	                        }
- 	                [shape curveTo:SWFMakePoint(points[n].x/64, points[n].y/64 )
- 	                        control:SWFMakePoint(x2/64, y2/64)];
- 	                }
- 	        } else {
- 	        }
- 	}
+@implementation SWFFont (FreeTypeParser)
 
 -(id)initWithFontName:(NSString *)fontname characterSet:(NSIndexSet *)set identifier:(int)identifier
 {
 	[NSException raise:@"SWFFreeTypeException" format:@"Function not implemented."];
 	return nil;
 }
+
+int SWFMoveTo(const FT_Vector *to,void *shape);
+int SWFLineTo(const FT_Vector *to,void *shape);
+int SWFConicTo(const FT_Vector *c,const FT_Vector *to,void *shape);
+int SWFCubicTo(const FT_Vector *c1,const FT_Vector *c2,const FT_Vector *to,void *shape);
 
 -(id)initWithFilename:(NSString *)filename fontName:(NSString *)fontname
 characterSet:(NSIndexSet *)set identifier:(int)identifier
@@ -90,56 +68,12 @@ characterSet:(NSIndexSet *)set identifier:(int)identifier
 			SWFShape *shape=[[[SWFShape alloc] init] autorelease];
 			FT_Outline *outline=&face->glyph->outline;
 
-/*			int countour=0;
-			for(int j=0;j<outline->n_points;j++)
-			{
-				if(j==outline->contours[countour])
-				{
-					
+			FT_Outline_Funcs funcs={
+				SWFMoveTo,SWFLineTo,SWFConicTo,SWFCubicTo,
+				0,0,
+			};
 
-					countour++;
-					if(countour>=outline->n_contours) break;
-				}*/
-			int start = 0, end;
-			BOOL control, cubic;
-			for(int j=0;j<outline->n_contours;j++)
-			{
-				end = outline->contours[j];
-				//fprintf(stderr,"  contour %i: %i-%i\n", contour, start, end );
-				int n=0;
- 	
-				for(int p=start;p<=end;p++)
-				{
-					control = !(outline->tags[p] & 0x01);
-					cubic = outline->tags[p] & 0x02;
-					if( p==start ) {
-						[shape moveTo:SWFMakePoint(outline->points[p-n].x/64, outline->points[p-n].y/64)];
-					}
-					if( !control && n > 0 ) {
-						importGlyphPoints( &(outline->points[(p-n)+1]), n-1, shape, cubic );
-						n=1;
-					} else {
-						n++;
-					}
-				}
- 	                               
-				if(n)
-				{
-					// special case: repeat first point
-					FT_Vector points[n+1];
-					int s=(end-n)+2;
-					for( int i=0; i<n-1; i++ ) {
-						points[i].x = outline->points[s+i].x;
-						points[i].y = outline->points[s+i].y;
-					}
-					points[n-1].x = outline->points[start].x;
-					points[n-1].y = outline->points[start].y;
- 	                                       
-					importGlyphPoints( points, n-1, shape, false );
-				}
- 	                               
-				start = end+1;
-			}
+			FT_Outline_Decompose(outline,&funcs,shape);
 
 			int advance=face->glyph->advance.x/64;
 
@@ -147,6 +81,33 @@ characterSet:(NSIndexSet *)set identifier:(int)identifier
 		}
 	}
 	return self;
+}
+
+int SWFMoveTo(const FT_Vector *to,void *shape)
+{
+	[(SWFShape *)shape moveTo:SWFMakePoint(to->x/64,to->y/64)];
+	return 0;
+}
+
+int SWFLineTo(const FT_Vector *to,void *shape)
+{
+	[(SWFShape *)shape lineTo:SWFMakePoint(to->x/64,to->y/64)];
+	return 0;
+}
+
+int SWFConicTo(const FT_Vector *c,const FT_Vector *to,void *shape)
+{
+	[(SWFShape *)shape quadraticBezierTo:SWFMakePoint(to->x/64,to->y/64)
+	control:SWFMakePoint(c->x/64,c->y/64)];
+	return 0;
+}
+
+int SWFCubicTo(const FT_Vector *c1,const FT_Vector *c2,const FT_Vector *to,void *shape)
+{
+	[(SWFShape *)shape cubicBezierTo:SWFMakePoint(to->x/64,to->y/64)
+	firstControl:SWFMakePoint(c1->x/64,c1->y/64)
+	secondControl:SWFMakePoint(c2->x/64,c2->y/64)];
+	return 0;
 }
 
 @end

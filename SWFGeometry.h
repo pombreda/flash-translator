@@ -17,6 +17,7 @@ typedef struct
 } SWFMatrix;
 
 static inline SWFPoint SWFMakePoint(int x,int y) { SWFPoint res={x,y}; return res; }
+SWFPoint SWFPointOnLine(SWFPoint a,SWFPoint b,float t);
 
 static inline SWFRect SWFMakeRect(int x,int y,int width,int height) { SWFRect res={x,y,width,height}; return res; }
 SWFRect SWFParseRect(CSHandle *fh);

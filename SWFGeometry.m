@@ -2,6 +2,13 @@
 #import <math.h>
 
 
+SWFPoint SWFPointOnLine(SWFPoint a,SWFPoint b,float t)
+{
+	return SWFMakePoint(
+		(float)a.x*(1-t)+(float)b.x*t,
+		(float)a.y*(1-t)+(float)b.y*t
+	);
+}
 
 SWFRect SWFParseRect(CSHandle *fh)
 {
