@@ -49,6 +49,6 @@
 
 -(unichar)decodeGlyph:(int)glyph;
 -(int)encodeGlyph:(unichar)chr;
--(int *)advancesForString:(NSString *)string;
+-(int *)advancesForString:(NSString *)string height:(int)height;
 
 @end

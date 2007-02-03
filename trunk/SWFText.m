@@ -230,6 +230,12 @@
 @implementation SWFTextRecord
 
 +(SWFTextRecord *)recordWithText:(NSString *)txt font:(SWFFont *)fnt height:(int)h
+position:(SWFPoint)pos red:(int)r green:(int)g blue:(int)b alpha:(int)a
+{
+	return [self recordWithText:txt font:fnt height:h position:pos red:r green:g blue:b alpha:a advances:NULL];
+}
+
++(SWFTextRecord *)recordWithText:(NSString *)txt font:(SWFFont *)fnt height:(int)h
 position:(SWFPoint)pos red:(int)r green:(int)g blue:(int)b alpha:(int)a advances:(int *)adv
 {
 	SWFTextRecord *rec=[[[SWFTextRecord alloc] init] autorelease];
@@ -276,13 +282,18 @@ position:(SWFPoint)pos red:(int)r green:(int)g blue:(int)b alpha:(int)a advances
 -(int)green { return green; }
 -(int)blue { return blue; }
 -(int)alpha { return alpha; }
--(int *)advances { return advances; }
+-(int *)advances
+{
+	if(advances) return advances;
+	else return [font advancesForString:text height:height];
+}
 
 -(int)length
 {
 	int len=0;
+	int *advptr=[self advances];
 	int count=[text length];
-	for(int i=0;i<count;i++) len+=advances[i];
+	for(int i=0;i<count;i++) len+=advptr[i];
 	return len;
 }
 
@@ -298,11 +309,15 @@ position:(SWFPoint)pos red:(int)r green:(int)g blue:(int)b alpha:(int)a advances
 {
 	free(advances);
 
-	int size=[text length]*sizeof(int);
-	advances=(int *)malloc(size);
-	if(!advances) [NSException raise:@"SWFOutOfMemoryException" format:@"Out of memory."];
+	if(adv)
+	{
+		int size=[text length]*sizeof(int);
+		advances=(int *)malloc(size);
+		if(!advances) [NSException raise:@"SWFOutOfMemoryException" format:@"Out of memory."];
 
-	memcpy(advances,adv,size);
+		memcpy(advances,adv,size);
+	}
+	else advances=NULL;
 }
 
 @end

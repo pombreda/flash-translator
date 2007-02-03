@@ -1,4 +1,5 @@
 #import "SWFGeometry.h"
+#import <math.h>
 
 
 
@@ -88,6 +89,62 @@ void SWFWriteMatrix(SWFMatrix mtx,CSHandle *fh)
 
 	[fh flushWriteBits];
 }
+
+static inline int fixmult(int a,int b) { return (((long long)a)*((long long)b))/65536; }
+
+SWFMatrix SWFMultiplyMatrices(SWFMatrix a,SWFMatrix b)
+{
+	return SWFMakeMatrix(
+		fixmult(a.a00,b.a00)+fixmult(a.a01,b.a10),
+		fixmult(a.a00,b.a01)+fixmult(a.a01,b.a11),
+		fixmult(a.a00,b.a02)+fixmult(a.a01,b.a12)+a.a02,
+		fixmult(a.a10,b.a00)+fixmult(a.a11,b.a10),
+		fixmult(a.a10,b.a01)+fixmult(a.a11,b.a11),
+		fixmult(a.a10,b.a02)+fixmult(a.a11,b.a12)+a.a12
+	);
+}
+
+SWFMatrix SWFScalingMatrix(float x_scale,float y_scale)
+{
+	return SWFMakeMatrix(
+		65536*x_scale,0,0,
+		0,65536*y_scale,0
+	);
+}
+
+SWFMatrix SWFRotationMatrix(float degrees)
+{
+	double rad=degrees*M_PI/180;
+	return SWFMakeMatrix(
+		65536*cos(rad),-65536*sin(rad),0,
+		65536*sin(rad),65536*cos(rad),0
+	);
+}
+
+
+
+/*SWFMatrix SWFMatrixFromAffineTransform(NSAffineTransform *t)
+{
+	NSAffineTransformStruct a=[t transformStruct];
+	SWFMatrix res={
+		a.m11*65536.0,a.m21*65536.0,a.tX*20.0,
+		a.m12*65536.0,a.m22*65536.0,a.tY*20.0
+	};
+	return res;
+}
+
+NSAffineTransform *SWFAffineTransformFromMatrix(SWFMatrix m)
+{
+	NSAffineTransformStruct a={
+		(float)m.a00/65536.0,(float)m.a10/65536.0,
+		(float)m.a01/65536.0,(float)m.a11/65536.0,
+		(float)m.a02/20.0,(float)m.a12/20.0
+	}
+	NSAffineTransform *t=[NSAffineTransform transform];
+	[transform setTransformStruct:a];
+	return t;
+}*/
+
 
 
 
