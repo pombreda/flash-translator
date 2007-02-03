@@ -310,14 +310,15 @@
 	return 0;
 }
 
--(int *)advancesForString:(NSString *)string
+-(int *)advancesForString:(NSString *)string height:(int)height
 {
 	if(!advtable) [NSException raise:@"SWFNoDataException" format:@"Attempted to calculate advancess for a font that does not have that data."];
 
+	int fontsize=large?20480:1024;
 	const int *advptr=(const int *)[advtable bytes];
 
 	int len=[string length];
-	NSMutableData *data=[NSMutableData data];
+	NSMutableData *data=[NSMutableData dataWithLength:len*sizeof(int)];
 	int *advances=(int *)[data mutableBytes];
 
 	for(int i=0;i<len;i++)
@@ -331,7 +332,8 @@
 			NSNumber *kern=[kerning objectForKey:[NSNumber numberWithUnsignedLong:(curr<<16)+next]];
 			if(kern) advance+=[kern intValue];
 		}
-		advances[i]=advance;
+
+		advances[i]=(height*advance)/fontsize;
 	}
 
 	return advances;

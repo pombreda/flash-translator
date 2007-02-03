@@ -47,6 +47,8 @@
 }
 
 +(SWFTextRecord *)recordWithText:(NSString *)txt font:(SWFFont *)fnt height:(int)h
+position:(SWFPoint)pos red:(int)r green:(int)g blue:(int)b alpha:(int)a;
++(SWFTextRecord *)recordWithText:(NSString *)txt font:(SWFFont *)fnt height:(int)h
 position:(SWFPoint)pos red:(int)r green:(int)g blue:(int)b alpha:(int)a advances:(int *)adv;
 
 -(id)init;
