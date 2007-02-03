@@ -38,7 +38,7 @@
 					int cy=y+[fh readSignedBits:bits];
 					x=cx+[fh readSignedBits:bits];
 					y=cy+[fh readSignedBits:bits];
-					[self curveTo:SWFMakePoint(x,y) control:SWFMakePoint(cx,cy)];
+					[self quadraticBezierTo:SWFMakePoint(x,y) control:SWFMakePoint(cx,cy)];
 				}
 				else
 				{
@@ -63,6 +63,7 @@
 				if(flags&16) [NSException raise:@"SWFShapeParsingException" format:@"Encountered shape with styles in a font definition."];
 				if(flags&2) [NSException raise:@"SWFShapeParsingException" format:@"Encountered shape setting fill style 0 in a font definition."];
 
+				// Parse move
 				if(flags&1)
 				{
 					int bits=[fh readBits:5];
@@ -71,17 +72,20 @@
 					[self moveTo:SWFMakePoint(x,y)];
 				}
 
+				// Parse fill style 0
 				//if(flags&2) // forbidden
 				//{
 				//	[fh readBits:fill_bits];
 				//}
 
+				// Parse fill style 1
 				if(flags&4)
 				{
 					int fill=[fh readBits:fill_bits];
 					if(fill!=1) [NSException raise:@"SWFShapeParsingException" format:@"Encountered shape setting fill style 1 to 0 in a font definition."];
 				}
 
+				// Parse line style
 				//if(flags&8) // line_bits assumed to be 0
 				//{
 				//	[fh readBits:line_bits];
@@ -112,13 +116,41 @@
 	[shaperecords addObject:[[[SWFShapeRecord alloc] initWithType:SWFShapeLineRecord point:point] autorelease]];
 }
 
--(void)curveTo:(SWFPoint)point control:(SWFPoint)control
+-(void)quadraticBezierTo:(SWFPoint)point control:(SWFPoint)control
 {
 	[shaperecords addObject:[[[SWFShapeRecord alloc] initWithType:SWFShapeCurveRecord point:point control:control] autorelease]];
 }
 
+-(void)cubicBezierTo:(SWFPoint)point firstControl:(SWFPoint)control1 secondControl:(SWFPoint)control2
+{
+	SWFPoint p0=[[shaperecords lastObject] point];
+	SWFPoint p1=control1,p2=control2,p3=point; // just renaming for brevity
+
+	SWFPoint t0=SWFPointOnLine(SWFPointOnLine(p0,p1,0.5),SWFPointOnLine(p1,p2,0.5),0.5);
+	SWFPoint t1=SWFPointOnLine(SWFPointOnLine(p1,p2,0.5),SWFPointOnLine(p2,p3,0.5),0.5);
+
+	SWFPoint c0=SWFPointOnLine(p0,p1,3.0/8.0);
+	SWFPoint c1=SWFPointOnLine(t0,t1,1.0/8.0);
+	SWFPoint c2=SWFPointOnLine(t1,t0,1.0/8.0);
+	SWFPoint c3=SWFPointOnLine(p3,p2,3.0/8.0);
+
+	SWFPoint a1=SWFPointOnLine(c0,c1,0.5);
+	SWFPoint a2=SWFPointOnLine(t0,t1,0.5); // equivalent to SWFPointOnLine(c1,c2,0.5);
+	SWFPoint a3=SWFPointOnLine(c2,c3,0.5);
+
+	[self quadraticBezierTo:a1 control:c0];
+	[self quadraticBezierTo:a2 control:c1];
+	[self quadraticBezierTo:a3 control:c2];
+	[self quadraticBezierTo:point control:c3];
+
+//	[self quadraticBezierTo:SWFMakePoint((control1.x+control2.x)/2,(control1.y+control2.y)/2) control:control1];
+//	[self quadraticBezierTo:point control:control2];
+}
+
 -(void)writeToHandle:(CSHandle *)fh
 {
+	// 1 fill bit, 0 style bits
+//	[fh writeUInt8:0x10];
 	[fh writeUInt8:0x10];
 
 	NSEnumerator *enumerator=[shaperecords objectEnumerator];
@@ -132,7 +164,7 @@
 		int bits;
 		SWFPoint point,control;
 
-		[fh writeBits:6 value:13];
+		[fh writeBits:6 value:13]; // setup record, defines line style, fill style 1 and move
 		point=[record point];
 		bits=SWFCountSignedBits2(point.x,point.y);
 		[fh writeBits:5 value:bits];

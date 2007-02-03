@@ -16,7 +16,8 @@
 
 -(void)moveTo:(SWFPoint)point;
 -(void)lineTo:(SWFPoint)point;
--(void)curveTo:(SWFPoint)point control:(SWFPoint)control;
+-(void)quadraticBezierTo:(SWFPoint)point control:(SWFPoint)control;
+-(void)cubicBezierTo:(SWFPoint)point firstControl:(SWFPoint)control1 secondControl:(SWFPoint)control2;
 
 -(void)writeToHandle:(CSHandle *)fh;
 
