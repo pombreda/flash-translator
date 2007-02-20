@@ -50,6 +50,10 @@
 		1BFF6A300B69533700E0900B /* SWFText.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF67450B658B4600E0900B /* SWFText.m */; };
 		1BFF6AC10B69542300E0900B /* SWFWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF6AC00B69542300E0900B /* SWFWriter.m */; };
 		1BFF6B200B6964AB00E0900B /* CSMemoryHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF6B1F0B6964AB00E0900B /* CSMemoryHandle.m */; };
+		3D62F7250B8BB6B4003665AD /* SWFShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B734EBD0B710DE1006191A2 /* SWFShape.m */; };
+		3D62F7C60B8BB960003665AD /* SSADocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D62F7C50B8BB960003665AD /* SSADocument.m */; };
+		3D62F7C90B8BB975003665AD /* SubSerializer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D62F7C80B8BB975003665AD /* SubSerializer.mm */; };
+		3DFDE00E0B744CCD000EB1C7 /* Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDE00D0B744CCD000EB1C7 /* Categories.m */; };
 		8DD76F9A0486AA7600D96B5E /* swfstrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* swfstrings.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -153,6 +157,12 @@
 		1BFF6B1E0B6964AB00E0900B /* CSMemoryHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSMemoryHandle.h; sourceTree = "<group>"; };
 		1BFF6B1F0B6964AB00E0900B /* CSMemoryHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMemoryHandle.m; sourceTree = "<group>"; };
 		32A70AAB03705E1F00C91783 /* FlashTranslator_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashTranslator_Prefix.pch; sourceTree = "<group>"; };
+		3D62F7C40B8BB960003665AD /* SSADocument.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SSADocument.h; sourceTree = "<group>"; };
+		3D62F7C50B8BB960003665AD /* SSADocument.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SSADocument.m; sourceTree = "<group>"; };
+		3D62F7C70B8BB975003665AD /* SubSerializer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SubSerializer.h; sourceTree = "<group>"; };
+		3D62F7C80B8BB975003665AD /* SubSerializer.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = SubSerializer.mm; sourceTree = "<group>"; };
+		3DFDE00C0B744CCD000EB1C7 /* Categories.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Categories.h; sourceTree = "<group>"; };
+		3DFDE00D0B744CCD000EB1C7 /* Categories.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = Categories.m; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* swfstrings */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swfstrings; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -209,6 +219,10 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				3D62F7C40B8BB960003665AD /* SSADocument.h */,
+				3D62F7C50B8BB960003665AD /* SSADocument.m */,
+				3D62F7C70B8BB975003665AD /* SubSerializer.h */,
+				3D62F7C80B8BB975003665AD /* SubSerializer.mm */,
 				08FB7796FE84155DC02AAC07 /* swfstrings.m */,
 				1B8D93E40B604F9700FEF20D /* swfextractssa.m */,
 				1BFF6A260B69530400E0900B /* swfinsertssa.m */,
@@ -227,6 +241,8 @@
 				1B734EBD0B710DE1006191A2 /* SWFShape.m */,
 				1BFF65280B61CE2A00E0900B /* SWFGeometry.h */,
 				1BFF65290B61CE2A00E0900B /* SWFGeometry.m */,
+				3DFDE00C0B744CCD000EB1C7 /* Categories.h */,
+				3DFDE00D0B744CCD000EB1C7 /* Categories.m */,
 				1BFF69AF0B680AA600E0900B /* IO Classes */,
 				32A70AAB03705E1F00C91783 /* FlashTranslator_Prefix.pch */,
 			);
@@ -460,6 +476,9 @@
 				1BFF6B200B6964AB00E0900B /* CSMemoryHandle.m in Sources */,
 				1B734EBE0B710DE1006191A2 /* SWFShape.m in Sources */,
 				1B7352870B73B17D006191A2 /* SWFFreeType.m in Sources */,
+				3DFDE00E0B744CCD000EB1C7 /* Categories.m in Sources */,
+				3D62F7C60B8BB960003665AD /* SSADocument.m in Sources */,
+				3D62F7C90B8BB975003665AD /* SubSerializer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +502,7 @@
 				1B0DD6A40B6562F700CEB44D /* SWFParser.m in Sources */,
 				1BFF67470B658B4600E0900B /* SWFText.m in Sources */,
 				1BFF674E0B658B6600E0900B /* SWFFont.m in Sources */,
+				3D62F7250B8BB6B4003665AD /* SWFShape.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

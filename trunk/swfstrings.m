@@ -28,9 +28,14 @@ int main(int argc,char **argv)
 			{
 				SWFText *text=[[[SWFText alloc] initWithParser:parser fonts:fonts] autorelease];
 				NSEnumerator *enumerator=[[text textRecords] objectEnumerator];
-				SWFTextRecord *record;
-				while(record=[enumerator nextObject])
-				printf("%s\n",[[record text] UTF8String]);
+				SWFTextRecord *record = [enumerator nextObject];
+				if (record) {
+					printf("%d=%s",[text identifier],[[record text] UTF8String]);
+					
+					while(record=[enumerator nextObject])
+						printf("\\N%s",[[record text] UTF8String]);
+					printf("\n");
+				}
 			}
 			break;
 

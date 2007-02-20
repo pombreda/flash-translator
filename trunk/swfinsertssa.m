@@ -6,17 +6,21 @@
 #import "SWFText.h"
 #import "SWFShape.h"
 #import "CSMemoryHandle.h"
+#import "SSADocument.h"
 
 void PrintEntry(SWFText *text,double appeartime,double disappeartime);
 
 int main(int argc,char **argv)
 {
 	NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
-	if(argc!=3) return 1;
+	if(argc!=4) return 1;
 
 	NSMutableDictionary *fonts=[NSMutableDictionary dictionary];
 	SWFParser *parser=[SWFParser parserForPath:[NSString stringWithUTF8String:argv[1]]];
 	SWFWriter *writer=[SWFWriter writerForPath:[NSString stringWithUTF8String:argv[2]] parser:parser];
+	SSADocument *ssa =[[SSADocument alloc] init];
+	
+	[ssa loadFile:[NSString stringWithUTF8String:argv[3]] width:640 height:480];
 
 	while([parser nextTag])
 	{
@@ -77,7 +81,7 @@ int main(int argc,char **argv)
 					[font addGlyph:b character:'b' advance:1200];
 					[font addGlyph:c character:'c' advance:1200];*/
 
-					SWFFont *font=[[[SWFFont alloc] initWithFilename:@"/Users/dag/Code/FlashTranslator/mikachan-p.otf"
+					SWFFont *font=[[[SWFFont alloc] initWithFilename:[@"~/mikachan-p.otf" stringByExpandingTildeInPath]
 					fontName:@"Mikachan-P" characterSet:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(32,127-32)]
 					identifier:0x1242] autorelease];
 
