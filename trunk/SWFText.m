@@ -232,6 +232,8 @@
 +(SWFTextRecord *)recordWithText:(NSString *)txt font:(SWFFont *)fnt height:(int)h
 position:(SWFPoint)pos red:(int)r green:(int)g blue:(int)b alpha:(int)a
 {
+	if ([fnt isMemberOfClass:[SWFText class]]) NSLog(@"!");
+
 	return [self recordWithText:txt font:fnt height:h position:pos red:r green:g blue:b alpha:a advances:NULL];
 }
 
@@ -239,6 +241,8 @@ position:(SWFPoint)pos red:(int)r green:(int)g blue:(int)b alpha:(int)a
 position:(SWFPoint)pos red:(int)r green:(int)g blue:(int)b alpha:(int)a advances:(int *)adv
 {
 	SWFTextRecord *rec=[[[SWFTextRecord alloc] init] autorelease];
+	if ([fnt isMemberOfClass:[SWFText class]]) NSLog(@"!");
+
 	[rec setText:txt];
 	[rec setFont:fnt];
 	[rec setHeight:h];
@@ -297,7 +301,7 @@ position:(SWFPoint)pos red:(int)r green:(int)g blue:(int)b alpha:(int)a advances
 	return len;
 }
 
--(void)setFont:(SWFFont *)newfont { [font autorelease]; font=[newfont retain]; }
+-(void)setFont:(SWFFont *)newfont {	if ([font isMemberOfClass:[SWFText class]]) NSLog(@"!");	[font autorelease]; font=[newfont retain]; }
 -(void)setText:(NSString *)newtext { [text autorelease]; text=[newtext retain]; }
 -(void)setHeight:(int)h { height=h; }
 -(void)setPosition:(SWFPoint)pos { position=pos; }

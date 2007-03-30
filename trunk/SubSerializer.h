@@ -17,6 +17,7 @@
 	unsigned begin_time, end_time;
 }
 -(id)initWithLine:(NSString*)l start:(unsigned)s end:(unsigned)e;
+-(NSString*)plaintext;
 @end
 
 @interface SubtitleSerializer : NSObject

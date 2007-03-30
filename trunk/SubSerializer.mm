@@ -214,6 +214,19 @@ static bool isinrange(unsigned base, unsigned test_s, unsigned test_e)
 	[super dealloc];
 }
 
+-(NSString*)plaintext
+{
+	NSArray *lines = [line componentsSeparatedByString:@"\n"];
+	int c = [lines count];
+	NSMutableString *tmp = [NSMutableString string];
+	
+	for (int i = 0; i < c-1; i++) {
+		[tmp appendString:[[[lines objectAtIndex:i] componentsSeparatedByString:@"," count:9] objectAtIndex:8]];
+	}
+	
+	return tmp;
+}
+
 -(NSString*)description
 {
 	return [NSString stringWithFormat:@"\"%@\", %d -> %d",line,begin_time,end_time];
