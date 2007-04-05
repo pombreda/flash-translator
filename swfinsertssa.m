@@ -85,7 +85,7 @@ int main(int argc,char **argv)
 						else line = [ssa packet:curpacket++];
 					}
 					
-					if (time >= line->begin_time) {					
+					if (line && time >= line->begin_time) {					
 						SWFText *text=[[[SWFText alloc] initWithObjectIdentifier:0x1999 + frame] autorelease];
 						[text setRect:[parser rect]];
 						
