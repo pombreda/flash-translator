@@ -81,7 +81,7 @@
 		08FB7796FE84155DC02AAC07 /* swfstrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = swfstrings.m; sourceTree = "<group>"; };
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		1B0DD6090B65623100CEB44D /* swfextractssa */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swfextractssa; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B0DD6930B65627B00CEB44D /* swfinsertssa */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swfinsertssa; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B0DD6930B65627B00CEB44D /* swfinsertssa */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.executable"; path = swfinsertssa; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B0DD6A10B6562F700CEB44D /* SWFParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFParser.h; sourceTree = "<group>"; };
 		1B0DD6A20B6562F700CEB44D /* SWFParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFParser.m; sourceTree = "<group>"; };
 		1B734EBC0B710DE1006191A2 /* SWFShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFShape.h; sourceTree = "<group>"; };
