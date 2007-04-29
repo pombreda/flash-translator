@@ -2,6 +2,7 @@
 #import "SWFParser.h"
 #import "SWFWriter.h"
 #import "SWFShape.h"
+#import "sjis-unicode.h"
 
 @implementation SWFFont
 
@@ -57,13 +58,16 @@
 		int namelen=[fh readUInt8];
 		char namebuf[namelen];
 		[fh readBytes:namelen toBuffer:namebuf];
-		name=[[NSString alloc] initWithBytes:namebuf length:namelen encoding:NSUTF8StringEncoding];
+		name=[[NSString alloc] initWithBytes:namebuf length:namelen encoding:(flags&64) ? NSShiftJISStringEncoding : NSUTF8StringEncoding];
 
 		int numglyphs=[fh readUInt16LE];
 		int baseoffs=[fh offsetInFile];
 		int offsets[numglyphs];
 		int mapoffs;
-
+		
+		if (flags&64) NSLog(@"s-jis/reserved");
+		if (flags&32) NSLog(@"flag unicode/small_text is set\n");
+		
 		if(flags&8)
 		{
 			for(int i=0;i<numglyphs;i++) offsets[i]=[fh readUInt32LE]+baseoffs;
@@ -87,11 +91,14 @@
 
 		glyphtable=[[NSMutableData dataWithLength:numglyphs*sizeof(unichar)] retain];
 		unichar *glyphptr=(unichar *)[glyphtable mutableBytes];
-
-		for(int i=0;i<numglyphs;i++)
-		{
-			if(flags&4) glyphptr[i]=[fh readUInt16LE];
-			else glyphptr[i]=[fh readUInt8];
+		
+		if(flags&4) {
+			for(int i=0;i<numglyphs;i++) {
+				unsigned short glyph = [fh readUInt16LE];
+				glyphptr[i] = (flags&64) ? sjis2ucs2(glyph) : glyph;
+			}
+		} else {
+			for(int i=0;i<numglyphs;i++) glyphptr[i]=[fh readUInt8];
 		}
 
 		if(flags&128)
