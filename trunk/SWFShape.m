@@ -60,8 +60,8 @@
 				int flags=[fh readBits:5];
 				if(flags==0) break;
 
-				if(flags&16) [NSException raise:@"SWFShapeParsingException" format:@"Encountered shape with styles in a font definition."];
-				if(flags&2) [NSException raise:@"SWFShapeParsingException" format:@"Encountered shape setting fill style 0 in a font definition."];
+//				if(flags&16) [NSException raise:@"SWFShapeParsingException" format:@"Encountered shape with styles in a font definition."];
+//				if(flags&2) [NSException raise:@"SWFShapeParsingException" format:@"Encountered shape setting fill style 0 in a font definition."];
 
 				// Parse move
 				if(flags&1)

@@ -10,7 +10,7 @@ int main(int argc,char **argv)
 
 	NSMutableDictionary *fonts=[NSMutableDictionary dictionary];
 	SWFParser *parser=[SWFParser parserForPath:[NSString stringWithUTF8String:argv[1]]];
-
+	printf("vers %d\n",[parser version]);
 	for(;;)
 	{
 		switch([parser nextTag])

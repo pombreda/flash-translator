@@ -53,6 +53,8 @@
 		3D62F7250B8BB6B4003665AD /* SWFShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B734EBD0B710DE1006191A2 /* SWFShape.m */; };
 		3D62F7C60B8BB960003665AD /* SSADocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D62F7C50B8BB960003665AD /* SSADocument.m */; };
 		3D62F7C90B8BB975003665AD /* SubSerializer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D62F7C80B8BB975003665AD /* SubSerializer.mm */; };
+		3DF2C0F50BE476C600A40193 /* make-sjis-unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2C0F40BE476C600A40193 /* make-sjis-unicode.c */; };
+		3DF2C11C0BE47C0C00A40193 /* make-sjis-unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2C0F40BE476C600A40193 /* make-sjis-unicode.c */; };
 		3DFDE00E0B744CCD000EB1C7 /* Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDE00D0B744CCD000EB1C7 /* Categories.m */; };
 		8DD76F9A0486AA7600D96B5E /* swfstrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* swfstrings.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
@@ -161,6 +163,9 @@
 		3D62F7C50B8BB960003665AD /* SSADocument.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SSADocument.m; sourceTree = "<group>"; };
 		3D62F7C70B8BB975003665AD /* SubSerializer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SubSerializer.h; sourceTree = "<group>"; };
 		3D62F7C80B8BB975003665AD /* SubSerializer.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = SubSerializer.mm; sourceTree = "<group>"; };
+		3D6C12510BE482D400D0B2FC /* sjis-unicode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "sjis-unicode.h"; sourceTree = "<group>"; };
+		3DF2C0F40BE476C600A40193 /* make-sjis-unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "make-sjis-unicode.c"; sourceTree = "<group>"; };
+		3DF2C1180BE47BFF00A40193 /* make-sjis-unicode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "make-sjis-unicode"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DFDE00C0B744CCD000EB1C7 /* Categories.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Categories.h; sourceTree = "<group>"; };
 		3DFDE00D0B744CCD000EB1C7 /* Categories.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = Categories.m; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* swfstrings */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swfstrings; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,6 +196,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BFF687E0B66E07400E0900B /* libz.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DF2C1160BE47BFF00A40193 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +257,8 @@
 				3DFDE00D0B744CCD000EB1C7 /* Categories.m */,
 				1BFF69AF0B680AA600E0900B /* IO Classes */,
 				32A70AAB03705E1F00C91783 /* FlashTranslator_Prefix.pch */,
+				3DF2C0F40BE476C600A40193 /* make-sjis-unicode.c */,
+				3D6C12510BE482D400D0B2FC /* sjis-unicode.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -266,6 +280,7 @@
 				1B0DD6090B65623100CEB44D /* swfextractssa */,
 				1B0DD6930B65627B00CEB44D /* swfinsertssa */,
 				1B8D93F90B6050D700FEF20D /* swfcompress */,
+				3DF2C1180BE47BFF00A40193 /* make-sjis-unicode */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -407,6 +422,22 @@
 			productReference = 1B8D93F90B6050D700FEF20D /* swfcompress */;
 			productType = "com.apple.product-type.tool";
 		};
+		3DF2C1170BE47BFF00A40193 /* make-sjis-unicode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3DF2C11E0BE47C1400A40193 /* Build configuration list for PBXNativeTarget "make-sjis-unicode" */;
+			buildPhases = (
+				3DF2C1150BE47BFF00A40193 /* Sources */,
+				3DF2C1160BE47BFF00A40193 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "make-sjis-unicode";
+			productName = "make-sjis-unicode";
+			productReference = 3DF2C1180BE47BFF00A40193 /* make-sjis-unicode */;
+			productType = "com.apple.product-type.tool";
+		};
 		8DD76F960486AA7600D96B5E /* swfstrings */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB927408733DD40010E9CD /* Build configuration list for PBXNativeTarget "swfstrings" */;
@@ -439,6 +470,7 @@
 				1B0DD6080B65623100CEB44D /* swfextractssa */,
 				1B0DD6920B65627B00CEB44D /* swfinsertssa */,
 				1B8D93F80B6050D700FEF20D /* swfcompress */,
+				3DF2C1170BE47BFF00A40193 /* make-sjis-unicode */,
 			);
 		};
 /* End PBXProject section */
@@ -479,6 +511,7 @@
 				3DFDE00E0B744CCD000EB1C7 /* Categories.m in Sources */,
 				3D62F7C60B8BB960003665AD /* SSADocument.m in Sources */,
 				3D62F7C90B8BB975003665AD /* SubSerializer.mm in Sources */,
+				3DF2C0F50BE476C600A40193 /* make-sjis-unicode.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +520,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B8D93FC0B6050ED00FEF20D /* swfcompress.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DF2C1150BE47BFF00A40193 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DF2C11C0BE47C0C00A40193 /* make-sjis-unicode.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,6 +762,36 @@
 			};
 			name = Release;
 		};
+		3DF2C11F0BE47C1400A40193 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = "$(HOME)/bin";
+				PREBINDING = NO;
+				PRODUCT_NAME = "make-sjis-unicode";
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		3DF2C1200BE47C1400A40193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = "$(HOME)/bin";
+				PREBINDING = NO;
+				PRODUCT_NAME = "make-sjis-unicode";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -765,6 +836,15 @@
 			buildConfigurations = (
 				1DEB927908733DD40010E9CD /* Debug */,
 				1DEB927A08733DD40010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3DF2C11E0BE47C1400A40193 /* Build configuration list for PBXNativeTarget "make-sjis-unicode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3DF2C11F0BE47C1400A40193 /* Debug */,
+				3DF2C1200BE47C1400A40193 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
