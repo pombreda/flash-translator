@@ -141,7 +141,7 @@ int main(int argc,char **argv)
 
 			case SWFPlaceObjectTag:
 			{
-			NSLog(@"placeobject");
+			//NSLog(@"placeobject");
 /*				int ident=[fh readUInt16BE];
 				NSNumber *key=[NSNumber numberWithInt:ident];
 				[appeartimes setObject:[NSNumber numberWithDouble:[parser time]] forKey:key];*/
@@ -150,7 +150,7 @@ int main(int argc,char **argv)
 
 			case SWFRemoveObjectTag:
 			{
-			NSLog(@"removeobject");
+			//NSLog(@"removeobject");
 /*				int ident=[fh readUInt16BE];
 				NSNumber *key=[NSNumber numberWithInt:ident];
 
@@ -177,7 +177,7 @@ int main(int argc,char **argv)
 	
 	rect = [parser rect];
 	
-	printf("[Script Info]\nScriptType: v4.00+\nPlayResX: %f\nPlayResY: %f\n",rect.width / 20.,rect.height / 20.);
+	printf("[Script Info]\nScriptType: v4.00+\nPlayResX: %f\nPlayResY: %f\nVSFilterFontSize: no\n",rect.width / 20.,rect.height / 20.);
 	printf("\n[V4+ Styles]\n");
 	printf("Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n");
 	SWFFont *font;

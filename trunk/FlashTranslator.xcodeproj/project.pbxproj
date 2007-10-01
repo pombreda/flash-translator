@@ -50,15 +50,29 @@
 		1BFF6A300B69533700E0900B /* SWFText.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF67450B658B4600E0900B /* SWFText.m */; };
 		1BFF6AC10B69542300E0900B /* SWFWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF6AC00B69542300E0900B /* SWFWriter.m */; };
 		1BFF6B200B6964AB00E0900B /* CSMemoryHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF6B1F0B6964AB00E0900B /* CSMemoryHandle.m */; };
+		3D4D096B0CB176D400DD0422 /* SubContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4D09630CB176D400DD0422 /* SubContext.m */; };
+		3D4D096C0CB176D400DD0422 /* SubImport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D4D09650CB176D400DD0422 /* SubImport.mm */; };
+		3D4D096D0CB176D400DD0422 /* SubUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4D096A0CB176D400DD0422 /* SubUtilities.m */; };
 		3D62F7250B8BB6B4003665AD /* SWFShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B734EBD0B710DE1006191A2 /* SWFShape.m */; };
-		3D62F7C60B8BB960003665AD /* SSADocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D62F7C50B8BB960003665AD /* SSADocument.m */; };
-		3D62F7C90B8BB975003665AD /* SubSerializer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D62F7C80B8BB975003665AD /* SubSerializer.mm */; };
 		3DF2C0F50BE476C600A40193 /* make-sjis-unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2C0F40BE476C600A40193 /* make-sjis-unicode.c */; };
 		3DF2C11C0BE47C0C00A40193 /* make-sjis-unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2C0F40BE476C600A40193 /* make-sjis-unicode.c */; };
-		3DFDE00E0B744CCD000EB1C7 /* Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDE00D0B744CCD000EB1C7 /* Categories.m */; };
 		8DD76F9A0486AA7600D96B5E /* swfstrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* swfstrings.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		3D4D0A0C0CB1770B00DD0422 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.c.rl *.cpp.rl *.cp.rl *.cxx.rl *.m.rl *.mm.rl";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_BASE)",
+			);
+			script = "RAGEL=${PROJECT_DIR}/Subtitles/ragel\nRLCODEGEN=${PROJECT_DIR}/Subtitles/rlgen-cd\n${RAGEL} ${INPUT_FILE_PATH} | ${RLCODEGEN} -T0 -o ${DERIVED_FILES_DIR}/${INPUT_FILE_BASE}\n";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		8DD76F9E0486AA7600D96B5E /* CopyFiles */ = {
@@ -159,15 +173,18 @@
 		1BFF6B1E0B6964AB00E0900B /* CSMemoryHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSMemoryHandle.h; sourceTree = "<group>"; };
 		1BFF6B1F0B6964AB00E0900B /* CSMemoryHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMemoryHandle.m; sourceTree = "<group>"; };
 		32A70AAB03705E1F00C91783 /* FlashTranslator_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashTranslator_Prefix.pch; sourceTree = "<group>"; };
-		3D62F7C40B8BB960003665AD /* SSADocument.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SSADocument.h; sourceTree = "<group>"; };
-		3D62F7C50B8BB960003665AD /* SSADocument.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SSADocument.m; sourceTree = "<group>"; };
-		3D62F7C70B8BB975003665AD /* SubSerializer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SubSerializer.h; sourceTree = "<group>"; };
-		3D62F7C80B8BB975003665AD /* SubSerializer.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = SubSerializer.mm; sourceTree = "<group>"; };
+		3D4D09620CB176D400DD0422 /* SubContext.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SubContext.h; sourceTree = "<group>"; };
+		3D4D09630CB176D400DD0422 /* SubContext.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SubContext.m; sourceTree = "<group>"; };
+		3D4D09640CB176D400DD0422 /* SubImport.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SubImport.h; sourceTree = "<group>"; };
+		3D4D09650CB176D400DD0422 /* SubImport.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = SubImport.mm; sourceTree = "<group>"; };
+		3D4D09660CB176D400DD0422 /* SubParsing.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SubParsing.h; sourceTree = "<group>"; };
+		3D4D09670CB176D400DD0422 /* SubParsing.m.rl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = SubParsing.m.rl; sourceTree = "<group>"; };
+		3D4D09680CB176D400DD0422 /* SubRenderer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SubRenderer.h; sourceTree = "<group>"; };
+		3D4D09690CB176D400DD0422 /* SubUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SubUtilities.h; sourceTree = "<group>"; };
+		3D4D096A0CB176D400DD0422 /* SubUtilities.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SubUtilities.m; sourceTree = "<group>"; };
 		3D6C12510BE482D400D0B2FC /* sjis-unicode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "sjis-unicode.h"; sourceTree = "<group>"; };
 		3DF2C0F40BE476C600A40193 /* make-sjis-unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "make-sjis-unicode.c"; sourceTree = "<group>"; };
 		3DF2C1180BE47BFF00A40193 /* make-sjis-unicode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "make-sjis-unicode"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DFDE00C0B744CCD000EB1C7 /* Categories.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Categories.h; sourceTree = "<group>"; };
-		3DFDE00D0B744CCD000EB1C7 /* Categories.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = Categories.m; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* swfstrings */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swfstrings; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -231,10 +248,6 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				3D62F7C40B8BB960003665AD /* SSADocument.h */,
-				3D62F7C50B8BB960003665AD /* SSADocument.m */,
-				3D62F7C70B8BB975003665AD /* SubSerializer.h */,
-				3D62F7C80B8BB975003665AD /* SubSerializer.mm */,
 				08FB7796FE84155DC02AAC07 /* swfstrings.m */,
 				1B8D93E40B604F9700FEF20D /* swfextractssa.m */,
 				1BFF6A260B69530400E0900B /* swfinsertssa.m */,
@@ -253,8 +266,7 @@
 				1B734EBD0B710DE1006191A2 /* SWFShape.m */,
 				1BFF65280B61CE2A00E0900B /* SWFGeometry.h */,
 				1BFF65290B61CE2A00E0900B /* SWFGeometry.m */,
-				3DFDE00C0B744CCD000EB1C7 /* Categories.h */,
-				3DFDE00D0B744CCD000EB1C7 /* Categories.m */,
+				3D4D095F0CB176D400DD0422 /* Subtitles */,
 				1BFF69AF0B680AA600E0900B /* IO Classes */,
 				32A70AAB03705E1F00C91783 /* FlashTranslator_Prefix.pch */,
 				3DF2C0F40BE476C600A40193 /* make-sjis-unicode.c */,
@@ -371,6 +383,22 @@
 			name = "IO Classes";
 			sourceTree = "<group>";
 		};
+		3D4D095F0CB176D400DD0422 /* Subtitles */ = {
+			isa = PBXGroup;
+			children = (
+				3D4D09620CB176D400DD0422 /* SubContext.h */,
+				3D4D09630CB176D400DD0422 /* SubContext.m */,
+				3D4D09640CB176D400DD0422 /* SubImport.h */,
+				3D4D09650CB176D400DD0422 /* SubImport.mm */,
+				3D4D09660CB176D400DD0422 /* SubParsing.h */,
+				3D4D09670CB176D400DD0422 /* SubParsing.m.rl */,
+				3D4D09680CB176D400DD0422 /* SubRenderer.h */,
+				3D4D09690CB176D400DD0422 /* SubUtilities.h */,
+				3D4D096A0CB176D400DD0422 /* SubUtilities.m */,
+			);
+			path = Subtitles;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -398,6 +426,7 @@
 				1B0DD6910B65627B00CEB44D /* Frameworks */,
 			);
 			buildRules = (
+				3D4D0A0C0CB1770B00DD0422 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -508,10 +537,10 @@
 				1BFF6B200B6964AB00E0900B /* CSMemoryHandle.m in Sources */,
 				1B734EBE0B710DE1006191A2 /* SWFShape.m in Sources */,
 				1B7352870B73B17D006191A2 /* SWFFreeType.m in Sources */,
-				3DFDE00E0B744CCD000EB1C7 /* Categories.m in Sources */,
-				3D62F7C60B8BB960003665AD /* SSADocument.m in Sources */,
-				3D62F7C90B8BB975003665AD /* SubSerializer.mm in Sources */,
 				3DF2C0F50BE476C600A40193 /* make-sjis-unicode.c in Sources */,
+				3D4D096B0CB176D400DD0422 /* SubContext.m in Sources */,
+				3D4D096C0CB176D400DD0422 /* SubImport.mm in Sources */,
+				3D4D096D0CB176D400DD0422 /* SubUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
