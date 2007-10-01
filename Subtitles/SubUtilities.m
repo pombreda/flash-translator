@@ -7,8 +7,6 @@
 //
 
 #import "SubUtilities.h"
-#import "UniversalDetector.h"
-#import "Codecprintf.h"
 
 NSArray *STSplitStringIgnoringWhitespace(NSString *str, NSString *split)
 {
@@ -95,47 +93,4 @@ static BOOL DifferentiateLatin12(const unsigned char *data, int length)
 	}
 	
 	return frcount <= 0;
-}
-
-extern NSString *STLoadFileWithUnknownEncoding(NSString *path)
-{
-	NSData *data = [NSData dataWithContentsOfMappedFile:path];
-	UniversalDetector *ud = [[UniversalDetector alloc] init];
-	NSString *res = nil;
-	NSStringEncoding enc;
-	float conf;
-	NSString *enc_str;
-	BOOL latin2;
-	
-	[ud analyzeData:data];
-	
-	enc = [ud encoding];
-	conf = [ud confidence];
-	enc_str = [ud MIMECharset];
-	latin2 = [enc_str isEqualToString:@"windows-1250"];
-	
-	if (latin2) {
-		if (DifferentiateLatin12([data bytes], [data length])) { // seems to actually be latin1
-			enc = NSWindowsCP1252StringEncoding;
-			enc_str = @"windows-1252";
-		}
-	}
-	
-	if (conf < .6 || latin2) {
-		Codecprintf(NULL,"Guessed encoding \"%s\" for \"%s\", but not sure (confidence %f%%).\n",[enc_str UTF8String],[path UTF8String],conf*100.);
-	}
-	
-	res = [[[NSString alloc] initWithData:data encoding:enc] autorelease];
-	
-	if (!res) {
-		if (latin2) {
-			Codecprintf(NULL,"Encoding %s failed, retrying.\n",[enc_str UTF8String]);
-			enc = (enc == NSWindowsCP1252StringEncoding) ? NSWindowsCP1250StringEncoding : NSWindowsCP1252StringEncoding;
-			res = [[[NSString alloc] initWithData:data encoding:enc] autorelease];
-			if (!res) Codecprintf(NULL,"Both of latin1/2 failed.\n",[enc_str UTF8String]);
-		} else Codecprintf(NULL,"Failed to load file as guessed encoding %s.\n",[enc_str UTF8String]);
-	}
-	[ud release];
-	
-	return res;
 }

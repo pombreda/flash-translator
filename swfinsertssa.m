@@ -6,7 +6,8 @@
 #import "SWFText.h"
 #import "SWFShape.h"
 #import "CSMemoryHandle.h"
-#import "SSADocument.h"
+#import "SubImport.h"
+#import "SubUtilities.h"
 
 static void WriteLineEnd(SWFWriter *writer)
 {
@@ -24,15 +25,16 @@ int main(int argc,char **argv)
 	NSMutableDictionary *fonts=[NSMutableDictionary dictionary];
 	SWFParser *parser=[SWFParser parserForPath:[NSString stringWithUTF8String:argv[1]]];
 	SWFWriter *writer=[SWFWriter writerForPath:[NSString stringWithUTF8String:argv[2]] parser:parser];
-	SSADocument *ssa =[[SSADocument alloc] init];
+	SubSerializer *subs = [[SubSerializer alloc] init];
 	SWFFont *font = nil;
 	SubLine *line = nil;
 	
-	[ssa loadFile:[NSString stringWithUTF8String:argv[3]] width:640 height:480];
-	int scount = [ssa packetCount], wroteFont = NO, curpacket = 0;
+	[subs setFinished:YES];
+	LoadSSAFromPath([NSString stringWithUTF8String:argv[3]], subs);
+	int wroteFont = NO, curpacket = 0;
 	
-	if (scount == 0) return 1;
-	line = [ssa packet:curpacket++];
+	if ([subs isEmpty]) return 1;
+	line = [[subs getSerializedPacket] retain];
 	
 	while([parser nextTag])
 	{
@@ -81,15 +83,16 @@ int main(int argc,char **argv)
 					
 					if (time > line->end_time) {
 						WriteLineEnd(writer);
-						if (curpacket == scount-1) line = nil;
-						else line = [ssa packet:curpacket++];
+						[line release];
+						if ([subs isEmpty]) line = nil;
+						else {line = [[subs getSerializedPacket] retain]; curpacket++;}
 					}
 					
 					if (line && time >= line->begin_time) {					
 						SWFText *text=[[[SWFText alloc] initWithObjectIdentifier:0x1999 + frame] autorelease];
 						[text setRect:[parser rect]];
 						
-						[text addTextRecord:[SWFTextRecord recordWithText:[line plaintext]
+						[text addTextRecord:[SWFTextRecord recordWithText:[STSplitStringWithCount(line->line, @",", 9) objectAtIndex:8]
 																	 font:font height:500 position:SWFMakePoint(50,[parser rect].height - 1000) red:255 green:255 blue:255 alpha:255]];
 						
 						[text write:writer];
@@ -101,7 +104,7 @@ int main(int argc,char **argv)
 						[fh writeUInt16LE:[text identifier]];
 						SWFWriteMatrix(SWFRotationMatrix(0),fh);
 						[writer endTag];
-					}
+						}
 				}
 								
 				[writer startTag:SWFShowFrameTag length:0];

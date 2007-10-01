@@ -6,9 +6,6 @@
 //  Copyright 2007 __MyCompanyName__. All rights reserved.
 //
 
-#include <QuickTime/QuickTime.h>
-#include "CommonUtils.h"
-#include "Codecprintf.h"
 #import "SubImport.h"
 #import "SubParsing.h"
 #import "SubUtilities.h"
@@ -41,9 +38,9 @@ static unsigned ParseSSATime(NSString *time)
 	return hour * 100 * 60 * 60 + minute * 100 * 60 + second * 100 + millisecond;
 }
 
-static NSString *LoadSSAFromPath(NSString *path, SubSerializer *ss)
+NSString *LoadSSAFromPath(NSString *path, SubSerializer *ss)
 {
-	NSString *nssSub = STLoadFileWithUnknownEncoding(path);
+	NSString *nssSub = STStandardizeStringNewlines([NSString stringWithContentsOfFile:path]);
 	
 	if (!nssSub) return nil;
 	
@@ -73,9 +70,9 @@ static NSString *LoadSSAFromPath(NSString *path, SubSerializer *ss)
 	return [nssSub substringToIndex:[nssSub rangeOfString:@"[Events]" options:NSLiteralSearch].location];
 }
 
-static void LoadSRTFromPath(NSString *path, SubSerializer *ss)
+void LoadSRTFromPath(NSString *path, SubSerializer *ss)
 {
-	NSMutableString *srt = STStandardizeStringNewlines(STLoadFileWithUnknownEncoding(path));
+	NSMutableString *srt = STStandardizeStringNewlines([NSString stringWithContentsOfFile:path]);
 	if (!srt) return;
 		
 	if ([srt characterAtIndex:0] == 0xFEFF) [srt deleteCharactersInRange:NSMakeRange(0,1)];
@@ -290,7 +287,7 @@ static bool isinrange(unsigned base, unsigned test_s, unsigned test_e)
 #endif
 }
 
--(SubLine*)_getSerializedPacket
+-(SubLine*)getSerializedPacket
 {
 	if ([outpackets count] == 0)  {
 		[self refill];
@@ -304,7 +301,7 @@ static bool isinrange(unsigned base, unsigned test_s, unsigned test_e)
 	[sl autorelease];
 	return sl;
 }
-
+/*
 -(SubLine*)getSerializedPacket
 {
 	if (!last_time) {
@@ -341,7 +338,7 @@ restart:
 		return [ret autorelease];
 	}
 }
-
+*/
 -(void)setFinished:(BOOL)f
 {
 	finished = f;
