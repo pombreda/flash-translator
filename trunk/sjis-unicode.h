@@ -10757,7 +10757,15 @@ static unsigned short sjis_unicode_map[] = {
 
 static unsigned short sjis2ucs2(unsigned short i)
 {
+	unsigned short res;
+	if ((i > 0xdf && i < 0x8140) || (i > 0x9ffc && i < 0xe040)) goto error;
 	if (i > 0xe040) i -= 0xc0a3;
 	else if (i > 0x8140) i -= 0x8060;
-	return sjis_unicode_map[i];
+	res = sjis_unicode_map[i];
+	if (res == 0 && i) goto error;
+	return res;
+
+	error:
+	fprintf(stderr, "Unknown sjis codepoint %#x!", i);
+	return '?';
 }

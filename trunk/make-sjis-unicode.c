@@ -38,10 +38,13 @@ int main(int argc, char *argv[])
 	for (i = gap_e; i <= gap2_b; i++) sjis_point(i);
 	for (i = gap2_e; i < (sizeof(sjis_unicode_map)/sizeof(unsigned short)); i++) sjis_point(i);
 	printf("};\n");
-	printf("\nstatic unsigned short sjis2ucs2(unsigned short i)\n{\n");
+	printf("\nstatic unsigned short sjis2ucs2(unsigned short i)\n{\n\tunsigned short res;\n");
+	printf("\tif ((i > %#x && i < %#x) || (i > %#x && i < %#x)) goto error;\n", gap_b, gap_e, gap2_b, gap2_e);
 	printf("\tif (i > %#x) i -= %#x;\n", gap2_e, ((gap2_e - gap2_b) - 1) + ((gap_e - gap_b) - 1));
 	printf("\telse if (i > %#x) i -= %#x;\n", gap_e, (gap_e - gap_b) - 1);
-	printf("\treturn sjis_unicode_map[i];\n}\n");
+	printf("\tres = sjis_unicode_map[i];\n");
+	printf("\tif (res == 0 && i) goto error;\n\treturn res;\n\n\terror:\n");
+	printf("\tfprintf(stderr, \"Unknown sjis codepoint %%#x!\", i);\n\treturn '?';\n}\n");
 	
 	return 0;
 }
