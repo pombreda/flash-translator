@@ -11,13 +11,8 @@
 
 #include <QuickTime/QuickTime.h>
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
 #ifdef __OBJC__
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "SubContext.h"
 
 @interface SubLine : NSObject
@@ -42,8 +37,8 @@ extern "C"
 -(BOOL)isEmpty;
 @end
 
-extern void SubLoadSSAFromPath(NSString *path, SubContext **meta, SubSerializer **lines, SubRenderer *renderer);
-extern void SubLoadSRTFromPath(NSString *path, SubContext **meta, SubSerializer **lines, SubRenderer *renderer);
+extern NSString *LoadSSAFromPath(NSString *path, SubSerializer *ss);
+extern void LoadSRTFromPath(NSString *path, SubSerializer *ss);
 
 #endif
 #endif

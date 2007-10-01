@@ -51,10 +51,10 @@
 		1BFF6AC10B69542300E0900B /* SWFWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF6AC00B69542300E0900B /* SWFWriter.m */; };
 		1BFF6B200B6964AB00E0900B /* CSMemoryHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF6B1F0B6964AB00E0900B /* CSMemoryHandle.m */; };
 		3D4D096B0CB176D400DD0422 /* SubContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4D09630CB176D400DD0422 /* SubContext.m */; };
-		3D4D096C0CB176D400DD0422 /* SubImport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D4D09650CB176D400DD0422 /* SubImport.mm */; };
+		3D4D096C0CB176D400DD0422 /* SubImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4D09650CB176D400DD0422 /* SubImport.m */; };
 		3D4D096D0CB176D400DD0422 /* SubUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4D096A0CB176D400DD0422 /* SubUtilities.m */; };
+		3D4D0AE40CB17EB100DD0422 /* SubParsing.m.rl in Sources */ = {isa = PBXBuildFile; fileRef = 3D4D09670CB176D400DD0422 /* SubParsing.m.rl */; };
 		3D62F7250B8BB6B4003665AD /* SWFShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B734EBD0B710DE1006191A2 /* SWFShape.m */; };
-		3DF2C0F50BE476C600A40193 /* make-sjis-unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2C0F40BE476C600A40193 /* make-sjis-unicode.c */; };
 		3DF2C11C0BE47C0C00A40193 /* make-sjis-unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2C0F40BE476C600A40193 /* make-sjis-unicode.c */; };
 		8DD76F9A0486AA7600D96B5E /* swfstrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* swfstrings.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
@@ -176,9 +176,9 @@
 		3D4D09620CB176D400DD0422 /* SubContext.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SubContext.h; sourceTree = "<group>"; };
 		3D4D09630CB176D400DD0422 /* SubContext.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SubContext.m; sourceTree = "<group>"; };
 		3D4D09640CB176D400DD0422 /* SubImport.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SubImport.h; sourceTree = "<group>"; };
-		3D4D09650CB176D400DD0422 /* SubImport.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = SubImport.mm; sourceTree = "<group>"; };
+		3D4D09650CB176D400DD0422 /* SubImport.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SubImport.m; sourceTree = "<group>"; };
 		3D4D09660CB176D400DD0422 /* SubParsing.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SubParsing.h; sourceTree = "<group>"; };
-		3D4D09670CB176D400DD0422 /* SubParsing.m.rl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = SubParsing.m.rl; sourceTree = "<group>"; };
+		3D4D09670CB176D400DD0422 /* SubParsing.m.rl */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 30; path = SubParsing.m.rl; sourceTree = "<group>"; };
 		3D4D09680CB176D400DD0422 /* SubRenderer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SubRenderer.h; sourceTree = "<group>"; };
 		3D4D09690CB176D400DD0422 /* SubUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SubUtilities.h; sourceTree = "<group>"; };
 		3D4D096A0CB176D400DD0422 /* SubUtilities.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SubUtilities.m; sourceTree = "<group>"; };
@@ -389,7 +389,7 @@
 				3D4D09620CB176D400DD0422 /* SubContext.h */,
 				3D4D09630CB176D400DD0422 /* SubContext.m */,
 				3D4D09640CB176D400DD0422 /* SubImport.h */,
-				3D4D09650CB176D400DD0422 /* SubImport.mm */,
+				3D4D09650CB176D400DD0422 /* SubImport.m */,
 				3D4D09660CB176D400DD0422 /* SubParsing.h */,
 				3D4D09670CB176D400DD0422 /* SubParsing.m.rl */,
 				3D4D09680CB176D400DD0422 /* SubRenderer.h */,
@@ -537,10 +537,10 @@
 				1BFF6B200B6964AB00E0900B /* CSMemoryHandle.m in Sources */,
 				1B734EBE0B710DE1006191A2 /* SWFShape.m in Sources */,
 				1B7352870B73B17D006191A2 /* SWFFreeType.m in Sources */,
-				3DF2C0F50BE476C600A40193 /* make-sjis-unicode.c in Sources */,
 				3D4D096B0CB176D400DD0422 /* SubContext.m in Sources */,
-				3D4D096C0CB176D400DD0422 /* SubImport.mm in Sources */,
+				3D4D096C0CB176D400DD0422 /* SubImport.m in Sources */,
 				3D4D096D0CB176D400DD0422 /* SubUtilities.m in Sources */,
+				3D4D0AE40CB17EB100DD0422 /* SubParsing.m.rl in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,8 +670,6 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/macosx/include";
 				INSTALL_PATH = "$(HOME)/bin";
 				LIBRARY_SEARCH_PATHS = (
