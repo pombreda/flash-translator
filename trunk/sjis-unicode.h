@@ -10766,6 +10766,6 @@ static unsigned short sjis2ucs2(unsigned short i)
 	return res;
 
 	error:
-	fprintf(stderr, "Unknown sjis codepoint %#x!", i);
+	fprintf(stderr, "Unknown sjis codepoint %#x!\n", i);
 	return '?';
 }

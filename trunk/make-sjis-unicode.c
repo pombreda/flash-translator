@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 	printf("\telse if (i > %#x) i -= %#x;\n", gap_e, (gap_e - gap_b) - 1);
 	printf("\tres = sjis_unicode_map[i];\n");
 	printf("\tif (res == 0 && i) goto error;\n\treturn res;\n\n\terror:\n");
-	printf("\tfprintf(stderr, \"Unknown sjis codepoint %%#x!\", i);\n\treturn '?';\n}\n");
+	printf("\tfprintf(stderr, \"Unknown sjis codepoint %%#x!\\n\", i);\n\treturn '?';\n}\n");
 	
 	return 0;
 }
