@@ -3,6 +3,13 @@
 #include <sys/stat.h>
 
 
+#ifdef __MINGW__
+#define FTELL(fh) ftell(fh)
+#else
+#define FTELL(fh) ftello(fh)
+#endif
+
+
 
 @implementation CSFileHandle
 
@@ -42,6 +49,21 @@
 	{
 		fh=file;
  		close=closeondealloc;
+		multi=NO;
+		parent=nil;
+	}
+	return self;
+}
+
+-(id)initAsCopyOf:(CSFileHandle *)other
+{
+	if(self=[super initAsCopyOf:other])
+	{
+		fh=other->fh;
+ 		close=NO;
+		multi=YES;
+		parent=[other retain];
+		pos=[other offsetInFile];
 	}
 	return self;
 }
@@ -49,6 +71,7 @@
 -(void)dealloc
 {
 	if(fh&&close) fclose(fh);
+	[parent release];
 	[super dealloc];
 }
 
@@ -57,15 +80,6 @@
 
 
 
--(off_t)offsetInFile
-{
-	#ifdef __MINGW__
-	return ftell(fh);
-	#else
-	return ftello(fh);
-	#endif
-}
-
 -(off_t)fileSize
 {
 	struct stat s;
@@ -73,34 +87,55 @@
 	return s.st_size;
 }
 
+-(off_t)offsetInFile
+{
+	if(multi) return pos;
+	else return FTELL(fh);
+}
+
+-(BOOL)atEndOfFile
+{
+	if(multi) return pos==[self fileSize];
+	else return feof(fh);
+}
+
 
 
 -(void)seekToFileOffset:(off_t)offs
 {
 	if(fseek(fh,offs,SEEK_SET)) [self _raiseError];
+	if(multi) pos=FTELL(fh);
 }
 
 -(void)seekToEndOfFile
 {
 	if(fseek(fh,0,SEEK_END)) [self _raiseError];
+	if(multi) pos=FTELL(fh);
 }
 
 -(void)pushBackByte:(int)byte
 {
+	if(multi) [self _raiseNotSupported:_cmd];
 	if(ungetc(byte,fh)==EOF) [self _raiseError];
 }
 
 -(int)readAtMost:(int)num toBuffer:(void *)buffer
 {
+	if(num==0) return 0;
+	if(multi) fseek(fh,pos,SEEK_SET);
 	int n=fread(buffer,1,num,fh);
-	if(n<=0) [self _raiseError];
+	if(n<=0&&!feof(fh)) [self _raiseError];
+	if(multi) pos=FTELL(fh);
 	return n;
 }
 
 -(void)writeBytes:(int)num fromBuffer:(const void *)buffer
 {
+	if(multi) fseek(fh,pos,SEEK_SET);
 	if(fwrite(buffer,1,num,fh)!=num) [self _raiseError];
+	if(multi) pos=FTELL(fh);
 }
+
 
 
 
@@ -109,6 +144,15 @@
 	if(feof(fh)) [self _raiseEOF];
 	else [NSException raise:@"CSFileErrorException"
 	format:@"Error while attempting to read file \"%@\": %s.",name,strerror(ferror(fh))];
+}
+
+-(void)_setMultiMode
+{
+	if(!multi)
+	{
+		multi=YES;
+		pos=FTELL(fh);
+	}
 }
 
 -(FILE *)filePointer { return fh; }

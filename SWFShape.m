@@ -82,7 +82,7 @@
 				if(flags&4)
 				{
 					int fill=[fh readBits:fill_bits];
-					if(fill!=1) [NSException raise:@"SWFShapeParsingException" format:@"Encountered shape setting fill style 1 to 0 in a font definition."];
+					//if(fill!=1) [NSException raise:@"SWFShapeParsingException" format:@"Encountered shape setting fill style 1 to 0 in a font definition."];
 				}
 
 				// Parse line style
