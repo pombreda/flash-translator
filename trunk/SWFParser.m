@@ -37,7 +37,7 @@
 	version=magic[3];
 	totallen=[fh readUInt32LE];
 
-	if((magic[0]!='F'&&magic[0]!='C')||magic[1]!='W'&&magic[2]!='S') [NSException raise:@"SWFWrongMagicException"
+	if((magic[0]!='F'&&magic[0]!='C')||magic[1]!='W'||magic[2]!='S') [NSException raise:@"SWFWrongMagicException"
 	format:@"Not a Shockwave Flash file."];
 
 	if(magic[0]=='C')
@@ -90,6 +90,7 @@
 
 -(int)tag { return currtag; }
 -(int)tagLength { return currlen; }
+-(int)tagBytesLeft { return nexttag-[fh offsetInFile]; }
 -(int)frame { return currframe; }
 -(double)time { return (double)currframe/((double)fps/256.0); }
 

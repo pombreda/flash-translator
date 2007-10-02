@@ -35,6 +35,21 @@ static inline uint64_t CSLEUInt64(uint8_t *b) { return ((uint64_t)b[7]<<56)|((ui
 	return self;
 }
 
+-(id)initAsCopyOf:(CSHandle *)other
+{
+	if(self=[super init])
+	{
+		name=[[[other name] stringByAppendingString:@" (copy)"] retain];
+
+		bitoffs=other->bitoffs;
+		readbyte=other->readbyte;
+		readbitsleft=other->readbitsleft;
+		writebyte=other->writebyte;
+		writebitsleft=other->writebitsleft;
+	}
+	return self;
+}
+
 -(void)dealloc
 {
 	[name release];
@@ -43,19 +58,22 @@ static inline uint64_t CSLEUInt64(uint8_t *b) { return ((uint64_t)b[7]<<56)|((ui
 
 
 
--(off_t)offsetInFile { [self _raiseNotImplemented]; return 0; }
+-(off_t)fileSize { [self _raiseNotImplemented:_cmd]; return 0; }
 
--(off_t)fileSize { [self _raiseNotImplemented]; return 0; }
+-(off_t)offsetInFile { [self _raiseNotImplemented:_cmd]; return 0; }
 
--(void)seekToFileOffset:(off_t)offs { [self _raiseNotImplemented]; }
+-(BOOL)atEndOfFile { [self _raiseNotImplemented:_cmd]; return NO; }
 
--(void)seekToEndOfFile { [self _raiseNotImplemented]; }
+-(void)seekToFileOffset:(off_t)offs { [self _raiseNotImplemented:_cmd]; }
 
--(void)pushBackByte:(int)byte { [self _raiseNotImplemented]; }
+-(void)seekToEndOfFile { [self _raiseNotImplemented:_cmd]; }
 
--(int)readAtMost:(int)num toBuffer:(void *)buffer { [self _raiseNotImplemented]; return 0; }
+-(void)pushBackByte:(int)byte { [self _raiseNotImplemented:_cmd]; }
 
--(void)writeBytes:(int)num fromBuffer:(const void *)buffer { [self _raiseNotImplemented]; }
+-(int)readAtMost:(int)num toBuffer:(void *)buffer { [self _raiseNotImplemented:_cmd]; return 0; }
+
+-(void)writeBytes:(int)num fromBuffer:(const void *)buffer { [self _raiseNotImplemented:_cmd]; }
+
 
 
 
@@ -155,6 +173,11 @@ CSReadValueImpl(uint32_t,readID,CSBEUInt32)
 	return [[self copyDataOfLength:length] autorelease];
 }
 
+-(NSData *)readDataOfLengthAtMost:(int)length;
+{
+	return [[self copyDataOfLengthAtMost:length] autorelease];
+}
+
 -(NSData *)copyDataOfLength:(int)length
 {
 	NSMutableData *data=[[NSMutableData alloc] initWithLength:length];
@@ -163,11 +186,19 @@ CSReadValueImpl(uint32_t,readID,CSBEUInt32)
 	return data;
 }
 
+-(NSData *)copyDataOfLengthAtMost:(int)length
+{
+	NSMutableData *data=[[NSMutableData alloc] initWithLength:length];
+	if(!data) [self _raiseMemory];
+	int actual=[self readAtMost:length toBuffer:[data mutableBytes]];
+	[data setLength:actual];
+	return data;
+}
+
 -(void)readBytes:(int)num toBuffer:(void *)buffer
 {
 	if([self readAtMost:num toBuffer:buffer]!=num) [self _raiseEOF];
 }
-
 
 static inline void CSSetBEInt16(uint8_t *b,int16_t n) { b[0]=(n>>8)&0xff; b[1]=n&0xff; }
 static inline void CSSetBEInt32(uint8_t *b,int32_t n) { b[0]=(n>>24)&0xff; b[1]=(n>>16)&0xff; b[2]=(n>>8)&0xff; b[3]=n&0xff; }
@@ -257,25 +288,25 @@ CSWriteValueImpl(uint32_t,writeID,CSSetBEUInt32)
 -(void)_raiseMemory
 {
 	[NSException raise:@"CSOutOfMemoryException"
-	format:@"Out of memory while attempting to read from file \"%@\".",name];
+	format:@"Out of memory while attempting to read from file \"%@\" (%@).",name,[self class]];
 }
 
 -(void)_raiseEOF
 {
 	[NSException raise:@"CSEndOfFileException"
-	format:@"Attempted to read past the end of file \"%@\".",name];
+	format:@"Attempted to read past the end of file \"%@\" (%@).",name,[self class]];
 }
 
--(void)_raiseNotImplemented
+-(void)_raiseNotImplemented:(SEL)selector
 {
 	[NSException raise:@"CSNotImplementedException"
-	format:@"Attempted to use unimplemented method when reading from file \"%@\".",name];
+	format:@"Attempted to use unimplemented method +[%@ %@] when reading from file \"%@\".",[self class],NSStringFromSelector(selector),name];
 }
 
--(void)_raiseNotSupported
+-(void)_raiseNotSupported:(SEL)selector
 {
 	[NSException raise:@"CSNotSupportedException"
-	format:@"Attempted to use unsupported method when reading from file \"%@\".",name];
+	format:@"Attempted to use unsupported method +[%@ %@] when reading from file \"%@\".",[self class],NSStringFromSelector(selector),name];
 }
 
 
@@ -285,6 +316,13 @@ CSWriteValueImpl(uint32_t,writeID,CSSetBEUInt32)
 {
 	return [NSString stringWithFormat:@"%@ for \"%@\", position %qu",
 	[self class],name,[self offsetInFile]];
+}
+
+
+
+-(id)copyWithZone:(NSZone *)zone
+{
+	return [[[self class] allocWithZone:zone] initAsCopyOf:self];
 }
 
 @end

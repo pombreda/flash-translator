@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <sys/types.h>
 
-@interface CSHandle:NSObject
+@interface CSHandle:NSObject <NSCopying>
 {
 	NSString *name;
 	off_t bitoffs;
@@ -10,15 +10,24 @@
 }
 
 -(id)initWithName:(NSString *)descname;
+-(id)initAsCopyOf:(CSHandle *)other;
 -(void)dealloc;
 
--(off_t)offsetInFile;
+
+// Methods implemented by subclasses
+
 -(off_t)fileSize;
+-(off_t)offsetInFile;
+-(BOOL)atEndOfFile;
 -(void)seekToFileOffset:(off_t)offs;
 -(void)seekToEndOfFile;
 -(void)pushBackByte:(int)byte;
 -(int)readAtMost:(int)num toBuffer:(void *)buffer;
 -(void)writeBytes:(int)num fromBuffer:(const void *)buffer;
+
+
+
+// Utility methods
 
 -(void)skipBytes:(off_t)bytes;
 
@@ -48,7 +57,9 @@
 -(NSData *)fileContents;
 -(NSData *)remainingFileContents;
 -(NSData *)readDataOfLength:(int)length;
+-(NSData *)readDataOfLengthAtMost:(int)length;
 -(NSData *)copyDataOfLength:(int)length;
+-(NSData *)copyDataOfLengthAtMost:(int)length;
 -(void)readBytes:(int)num toBuffer:(void *)buffer;
 
 -(void)writeInt8:(int8_t)val;
@@ -79,10 +90,12 @@
 //-(void)_raiseClosed;
 -(void)_raiseMemory;
 -(void)_raiseEOF;
--(void)_raiseNotImplemented;
--(void)_raiseNotSupported;
+-(void)_raiseNotImplemented:(SEL)selector;
+-(void)_raiseNotSupported:(SEL)selector;
 
 -(NSString *)name;
 -(NSString *)description;
+
+-(id)copyWithZone:(NSZone *)zone;
 
 @end

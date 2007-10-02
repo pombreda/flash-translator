@@ -9,6 +9,7 @@
 #define SWFPlaceObjectTag 4
 #define SWFRemoveObjectTag 5
 #define SWFDefineBitsJPEGTag 6
+#define SWFJPEGTables 8
 #define SWFDefineTextTag 11
 #define SWFDefineFontInfoTag 13
 #define SWFSoundStreamBlockTag 19
@@ -54,6 +55,7 @@
 
 -(int)tag;
 -(int)tagLength;
+-(int)tagBytesLeft;
 -(int)frame;
 -(double)time;
 
