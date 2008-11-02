@@ -3,4 +3,4 @@
 
 = Specs =
 
-* http://sswf.sourceforge.net/SWFalexref.html - Alexis' SWF Reference
+* http://www.m2osw.com/swf_alexref.html - Alexis' SWF Reference
