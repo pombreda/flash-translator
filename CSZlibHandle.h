@@ -1,30 +1,30 @@
-#import "CSHandle.h"
+#import "CSStreamHandle.h"
 
 #include <zlib.h>
 
-@interface CSZlibHandle:CSHandle
+@interface CSZlibHandle:CSStreamHandle
 {
-	CSHandle *fh;
+	CSHandle *parent;
 	off_t startoffs;
 	z_stream zs;
-	BOOL inited,eof;
-	//uint8_t inbuffer[128*1024];
+	BOOL inited,seekback;
+
 	uint8_t inbuffer[16*1024];
 }
 
 +(CSZlibHandle *)zlibHandleWithHandle:(CSHandle *)handle;
-//+(CSZlibHandle *)zlibHandleWithPath:(NSString *)path;
++(CSZlibHandle *)zlibHandleWithHandle:(CSHandle *)handle length:(off_t)length;
++(CSZlibHandle *)deflateHandleWithHandle:(CSHandle *)handle;
++(CSZlibHandle *)deflateHandleWithHandle:(CSHandle *)handle length:(off_t)length;
 
--(id)initWithHandle:(CSHandle *)handle name:(NSString *)descname;
+-(id)initWithHandle:(CSHandle *)handle length:(off_t)length header:(BOOL)header name:(NSString *)descname;
 -(id)initAsCopyOf:(CSZlibHandle *)other;
 -(void)dealloc;
 
--(off_t)offsetInFile;
--(BOOL)atEndOfFile;
+-(void)setSeekBackAtEOF:(BOOL)seekateof;
 
--(void)seekToFileOffset:(off_t)offs;
--(void)seekToEndOfFile;
--(int)readAtMost:(int)num toBuffer:(void *)buffer;
+-(void)resetStream;
+-(int)streamAtMost:(int)num toBuffer:(void *)buffer;
 
 -(void)_raiseZlib;
 

@@ -8,56 +8,52 @@
 
 +(CSZlibHandle *)zlibHandleWithHandle:(CSHandle *)handle
 {
-	return [[[CSZlibHandle alloc] initWithHandle:handle name:[handle name]] autorelease];
+	return [[[CSZlibHandle alloc] initWithHandle:handle length:CSHandleMaxLength header:YES name:[handle name]] autorelease];
 }
 
-/*+(CSFileHandle *)fileHandleWithPath:(NSString *)path
++(CSZlibHandle *)zlibHandleWithHandle:(CSHandle *)handle length:(off_t)length
 {
-	if(!path) return nil;
+	return [[[CSZlibHandle alloc] initWithHandle:handle length:length header:YES name:[handle name]] autorelease];
+}
 
-	FILE *fh=fopen([path fileSystemRepresentation],"rb");
-	CSFileHandle *handle=[[[CSFileHandle alloc] initWithFilePointer:fh closeOnDealloc:YES description:path] autorelease];
-	if(handle) return handle;
++(CSZlibHandle *)deflateHandleWithHandle:(CSHandle *)handle
+{
+	return [[[CSZlibHandle alloc] initWithHandle:handle length:CSHandleMaxLength header:NO name:[handle name]] autorelease];
+}
 
-	fclose(fh);
-	return nil;
-}*/
++(CSZlibHandle *)deflateHandleWithHandle:(CSHandle *)handle length:(off_t)length
+{
+	return [[[CSZlibHandle alloc] initWithHandle:handle length:length header:NO name:[handle name]] autorelease];
+}
 
 
 
--(id)initWithHandle:(CSHandle *)handle name:(NSString *)descname
+
+-(id)initWithHandle:(CSHandle *)handle length:(off_t)length header:(BOOL)header name:(NSString *)descname
 {
 	if(self=[super initWithName:descname])
 	{
-		fh=[handle retain];
-		startoffs=[fh offsetInFile];
-		inited=eof=NO;
+		parent=[handle retain];
+		startoffs=[parent offsetInFile];
+		inited=YES;
+		seekback=NO;
 
-		zs.zalloc=Z_NULL;
-		zs.zfree=Z_NULL;
-		zs.opaque=Z_NULL;
-		zs.avail_in=0;
-		zs.next_in=Z_NULL;
-
-		if(inflateInit(&zs)==Z_OK)
-		{
-			inited=YES;
-			return self;
-		}
-
-		[self release];
+		if(header) inflateInit(&zs);
+		else inflateInit2(&zs,-MAX_WBITS);
 	}
-	return nil;
+	return self;
 }
 
 -(id)initAsCopyOf:(CSZlibHandle *)other
 {
 	if(self=[super initAsCopyOf:other])
 	{
-		fh=[other->fh copy];
+		parent=[other->parent copy];
 		startoffs=other->startoffs;
 		inited=NO;
-		eof=other->eof;
+		seekback=other->seekback;
+
+		memset(&zs,0,sizeof(zs));
 
 		if(inflateCopy(&zs,&other->zs)==Z_OK)
 		{
@@ -76,61 +72,22 @@
 -(void)dealloc
 {
 	if(inited) inflateEnd(&zs);
-	[fh release];
+	[parent release];
 
 	[super dealloc];
 }
 
+-(void)setSeekBackAtEOF:(BOOL)seekateof { seekback=seekateof; }
 
-
--(off_t)offsetInFile
+-(void)resetStream
 {
-	return zs.total_out;
+	[parent seekToFileOffset:startoffs];
+	zs.avail_in=0;
+	inflateReset(&zs);
 }
 
--(BOOL)atEndOfFile { return eof; }
-
-
-
--(void)seekToFileOffset:(off_t)offs
+-(int)streamAtMost:(int)num toBuffer:(void *)buffer
 {
-	if(offs<zs.total_out)
-	{
-		if(zs.total_out==0) return;
-
-		zs.avail_in=0;
-		zs.next_in=Z_NULL;
-		if(inflateReset(&zs)!=Z_OK) [self _raiseZlib];
-		[fh seekToFileOffset:startoffs];
-	}
-
-	int skip=offs-zs.total_out;
-	uint8_t dummybuf[16384];
-	while(skip)
-	{
-		int num=sizeof(dummybuf);
-		if(num>skip) num=skip;
-		skip-=[self readAtMost:num toBuffer:dummybuf];
-	}
-}
-
--(void)seekToEndOfFile
-{
-	@try
-	{
-		[self seekToFileOffset:0x7fffffff];
-	}
-	@catch(NSException *e)
-	{
-		if([[e name] isEqual:@"CSEndOfFileException"]) return;
-		@throw e;
-	}
-}
-
--(int)readAtMost:(int)num toBuffer:(void *)buffer
-{
-	if(eof) return 0;
-
 	zs.next_out=buffer;
 	zs.avail_out=num;
 
@@ -138,20 +95,24 @@
 	{
 		if(!zs.avail_in)
 		{
-			if([fh atEndOfFile]) { eof=YES; break; }
-			zs.avail_in=[fh readAtMost:sizeof(inbuffer) toBuffer:inbuffer];
-			zs.next_in=inbuffer;
+			zs.avail_in=[parent readAtMost:sizeof(inbuffer) toBuffer:inbuffer];
+			zs.next_in=(void *)inbuffer;
+
+			if(!zs.avail_in) [parent _raiseEOF];
 		}
 
 		int err=inflate(&zs,0);
-		if(err==Z_STREAM_END) { eof=YES; break; }
+		if(err==Z_STREAM_END)
+		{
+			if(seekback) [parent skipBytes:-(off_t)zs.avail_in];
+			[self endStream];
+			break;
+		}
 		else if(err!=Z_OK) [self _raiseZlib];
 	}
 
 	return num-zs.avail_out;
 }
-
-
 
 -(void)_raiseZlib
 {
