@@ -9,6 +9,18 @@
 /* Begin PBXBuildFile section */
 		1B0DD6A30B6562F700CEB44D /* SWFParser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B0DD6A10B6562F700CEB44D /* SWFParser.h */; };
 		1B0DD6A40B6562F700CEB44D /* SWFParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DD6A20B6562F700CEB44D /* SWFParser.m */; };
+		1B2166D00F6B27E6001207C9 /* CSSubHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2166CF0F6B27E6001207C9 /* CSSubHandle.m */; };
+		1B2166D10F6B27E6001207C9 /* CSSubHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2166CF0F6B27E6001207C9 /* CSSubHandle.m */; };
+		1B2166D20F6B27E6001207C9 /* CSSubHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2166CF0F6B27E6001207C9 /* CSSubHandle.m */; };
+		1B2166D30F6B27E6001207C9 /* CSSubHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2166CF0F6B27E6001207C9 /* CSSubHandle.m */; };
+		1B2166D60F6B27F8001207C9 /* CSStreamHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2166D50F6B27F8001207C9 /* CSStreamHandle.m */; };
+		1B2166D70F6B27F8001207C9 /* CSStreamHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2166D50F6B27F8001207C9 /* CSStreamHandle.m */; };
+		1B2166D80F6B27F8001207C9 /* CSStreamHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2166D50F6B27F8001207C9 /* CSStreamHandle.m */; };
+		1B2166D90F6B27F8001207C9 /* CSStreamHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2166D50F6B27F8001207C9 /* CSStreamHandle.m */; };
+		1B2167020F6B2921001207C9 /* CSInputBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2167010F6B2921001207C9 /* CSInputBuffer.m */; };
+		1B2167030F6B2921001207C9 /* CSInputBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2167010F6B2921001207C9 /* CSInputBuffer.m */; };
+		1B2167040F6B2921001207C9 /* CSInputBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2167010F6B2921001207C9 /* CSInputBuffer.m */; };
+		1B2167050F6B2921001207C9 /* CSInputBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2167010F6B2921001207C9 /* CSInputBuffer.m */; };
 		1B734EBE0B710DE1006191A2 /* SWFShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B734EBD0B710DE1006191A2 /* SWFShape.m */; };
 		1B734EBF0B710DE1006191A2 /* SWFShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B734EBD0B710DE1006191A2 /* SWFShape.m */; };
 		1B7352870B73B17D006191A2 /* SWFFreeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7352860B73B17D006191A2 /* SWFFreeType.m */; };
@@ -100,6 +112,12 @@
 		1B0DD6930B65627B00CEB44D /* swfinsertssa */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swfinsertssa; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B0DD6A10B6562F700CEB44D /* SWFParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFParser.h; sourceTree = "<group>"; };
 		1B0DD6A20B6562F700CEB44D /* SWFParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFParser.m; sourceTree = "<group>"; };
+		1B2166CE0F6B27E6001207C9 /* CSSubHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSubHandle.h; sourceTree = "<group>"; };
+		1B2166CF0F6B27E6001207C9 /* CSSubHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSubHandle.m; sourceTree = "<group>"; };
+		1B2166D40F6B27F8001207C9 /* CSStreamHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSStreamHandle.h; sourceTree = "<group>"; };
+		1B2166D50F6B27F8001207C9 /* CSStreamHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSStreamHandle.m; sourceTree = "<group>"; };
+		1B2167000F6B2921001207C9 /* CSInputBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSInputBuffer.h; sourceTree = "<group>"; };
+		1B2167010F6B2921001207C9 /* CSInputBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSInputBuffer.m; sourceTree = "<group>"; };
 		1B734EBC0B710DE1006191A2 /* SWFShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFShape.h; sourceTree = "<group>"; };
 		1B734EBD0B710DE1006191A2 /* SWFShape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFShape.m; sourceTree = "<group>"; };
 		1B7352850B73B17C006191A2 /* SWFFreeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFFreeType.h; sourceTree = "<group>"; };
@@ -156,10 +174,8 @@
 		1B8D940A0B60514900FEF20D /* CSFileHandle.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = CSFileHandle.m; sourceTree = "<group>"; };
 		1B8D940E0B6137B200FEF20D /* CSHandle.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = CSHandle.h; sourceTree = "<group>"; };
 		1B8D940F0B6137B200FEF20D /* CSZlibHandle.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; path = CSZlibHandle.m; sourceTree = "<group>"; };
-		1B8D94100B6137B200FEF20D /* CSIFFHandle.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = CSIFFHandle.h; sourceTree = "<group>"; };
 		1B8D94110B6137B200FEF20D /* CSHandle.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; path = CSHandle.m; sourceTree = "<group>"; };
 		1B8D94120B6137B200FEF20D /* CSZlibHandle.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = CSZlibHandle.h; sourceTree = "<group>"; };
-		1B8D94130B6137B200FEF20D /* CSIFFHandle.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; path = CSIFFHandle.m; sourceTree = "<group>"; };
 		1BFF65280B61CE2A00E0900B /* SWFGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFGeometry.h; sourceTree = "<group>"; };
 		1BFF65290B61CE2A00E0900B /* SWFGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFGeometry.m; sourceTree = "<group>"; };
 		1BFF67440B658B4600E0900B /* SWFText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFText.h; sourceTree = "<group>"; };
@@ -371,14 +387,18 @@
 			children = (
 				1B8D940E0B6137B200FEF20D /* CSHandle.h */,
 				1B8D94110B6137B200FEF20D /* CSHandle.m */,
+				1B2166CE0F6B27E6001207C9 /* CSSubHandle.h */,
+				1B2166CF0F6B27E6001207C9 /* CSSubHandle.m */,
 				1B8D94090B60514900FEF20D /* CSFileHandle.h */,
 				1B8D940A0B60514900FEF20D /* CSFileHandle.m */,
 				1BFF6B1E0B6964AB00E0900B /* CSMemoryHandle.h */,
 				1BFF6B1F0B6964AB00E0900B /* CSMemoryHandle.m */,
+				1B2166D40F6B27F8001207C9 /* CSStreamHandle.h */,
+				1B2166D50F6B27F8001207C9 /* CSStreamHandle.m */,
 				1B8D94120B6137B200FEF20D /* CSZlibHandle.h */,
 				1B8D940F0B6137B200FEF20D /* CSZlibHandle.m */,
-				1B8D94100B6137B200FEF20D /* CSIFFHandle.h */,
-				1B8D94130B6137B200FEF20D /* CSIFFHandle.m */,
+				1B2167000F6B2921001207C9 /* CSInputBuffer.h */,
+				1B2167010F6B2921001207C9 /* CSInputBuffer.m */,
 			);
 			name = "IO Classes";
 			sourceTree = "<group>";
@@ -491,9 +511,11 @@
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 1DEB927808733DD40010E9CD /* Build configuration list for PBXProject "FlashTranslator" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 08FB7794FE84155DC02AAC07 /* FlashTranslator */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				8DD76F960486AA7600D96B5E /* swfstrings */,
 				1B0DD6080B65623100CEB44D /* swfextractssa */,
@@ -518,6 +540,9 @@
 				1BFF682E0B66DFE700E0900B /* CSHandle.m in Sources */,
 				1BFF68300B66DFEB00E0900B /* CSZlibHandle.m in Sources */,
 				1B734EBF0B710DE1006191A2 /* SWFShape.m in Sources */,
+				1B2166D20F6B27E6001207C9 /* CSSubHandle.m in Sources */,
+				1B2166D80F6B27F8001207C9 /* CSStreamHandle.m in Sources */,
+				1B2167040F6B2921001207C9 /* CSInputBuffer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +566,9 @@
 				3D4D096C0CB176D400DD0422 /* SubImport.m in Sources */,
 				3D4D096D0CB176D400DD0422 /* SubUtilities.m in Sources */,
 				3D4D0AE40CB17EB100DD0422 /* SubParsing.m.rl in Sources */,
+				1B2166D00F6B27E6001207C9 /* CSSubHandle.m in Sources */,
+				1B2166D60F6B27F8001207C9 /* CSStreamHandle.m in Sources */,
+				1B2167020F6B2921001207C9 /* CSInputBuffer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +577,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B8D93FC0B6050ED00FEF20D /* swfcompress.m in Sources */,
+				1B2166D30F6B27E6001207C9 /* CSSubHandle.m in Sources */,
+				1B2166D90F6B27F8001207C9 /* CSStreamHandle.m in Sources */,
+				1B2167050F6B2921001207C9 /* CSInputBuffer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,6 +604,9 @@
 				1BFF67470B658B4600E0900B /* SWFText.m in Sources */,
 				1BFF674E0B658B6600E0900B /* SWFFont.m in Sources */,
 				3D62F7250B8BB6B4003665AD /* SWFShape.m in Sources */,
+				1B2166D10F6B27E6001207C9 /* CSSubHandle.m in Sources */,
+				1B2166D70F6B27F8001207C9 /* CSStreamHandle.m in Sources */,
+				1B2167030F6B2921001207C9 /* CSInputBuffer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

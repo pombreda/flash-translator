@@ -3,7 +3,7 @@
 #include <sys/stat.h>
 
 
-#ifdef __MINGW__
+#if defined(__MINGW__)||defined(__COCOTRON__)
 #define FTELL(fh) ftell(fh)
 #else
 #define FTELL(fh) ftello(fh)
@@ -64,6 +64,7 @@
 		multi=YES;
 		parent=[other retain];
 		pos=[other offsetInFile];
+		[other _setMultiMode];
 	}
 	return self;
 }
@@ -95,8 +96,9 @@
 
 -(BOOL)atEndOfFile
 {
-	if(multi) return pos==[self fileSize];
-	else return feof(fh);
+	return [self offsetInFile]==[self fileSize];
+/*	if(multi) return pos==[self fileSize];
+	else return feof(fh);*/ // feof() only returns true after trying to read past the end
 }
 
 

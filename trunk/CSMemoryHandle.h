@@ -2,12 +2,12 @@
 
 @interface CSMemoryHandle:CSHandle
 {
-	NSData *data;
-	off_t pos;
+	NSData *backingdata;
+	off_t memorypos;
 }
 
 +(CSMemoryHandle *)memoryHandleForReadingData:(NSData *)data;
-+(CSMemoryHandle *)memoryHandleForReadingBuffer:(void *)buf length:(unsigned)len;
++(CSMemoryHandle *)memoryHandleForReadingBuffer:(const void *)buf length:(unsigned)len;
 +(CSMemoryHandle *)memoryHandleForReadingMappedFile:(NSString *)filename;
 +(CSMemoryHandle *)memoryHandleForWriting;
 
@@ -25,6 +25,8 @@
 -(int)readAtMost:(int)num toBuffer:(void *)buffer;
 -(void)writeBytes:(int)num fromBuffer:(const void *)buffer;
 
+-(NSData *)fileContents;
+-(NSData *)remainingFileContents;
 -(NSData *)readDataOfLength:(int)length;
 -(NSData *)readDataOfLengthAtMost:(int)length;
 -(NSData *)copyDataOfLength:(int)length;
