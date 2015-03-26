@@ -1,0 +1,1 @@
+Extract text as SSA subtitles from Flash and put it back in again. Handles font injection and text replacement.
